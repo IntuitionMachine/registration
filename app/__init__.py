@@ -48,7 +48,7 @@ app.config.from_object('config')
 db = SQLA(app)
 
 appbuilder = AppBuilder(app, db.session,indexview=MyIndexView,security_manager_class=MySecurityManager)
-ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+ai=apiai.ApiAI(os.environ.get('CLIENT_ACCESS_TOKEN'))
 from flask_mail import Mail,Message
 from flask_appbuilder.baseviews import expose
 from flask_appbuilder.security.registerviews import RegisterUserDBView
