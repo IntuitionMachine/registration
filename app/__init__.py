@@ -38,7 +38,7 @@ PAT = os.environ.get('PAT')
 #API AI Credentials
 CLIENT_ACCESS_TOKEN=os.environ.get('CLIENT_ACCESS_TOKEN')
 
-ai=apiai.ApiAI('CLIENT_ACCESS_TOKEN')
+ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 logging.getLogger().setLevel(logging.DEBUG)

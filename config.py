@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 #HEROKU REMOTE DB
 SQLALCHEMY_DATABASE_URI="postgres://ogrkczulbuljbo:ff99c10c0458102325aacde4abbeb4c6519690ccfecdad05192a8131b0b27ba3@ec2-184-73-174-10.compute-1.amazonaws.com:5432/ddp4iup5hoppn4"
 #LOCAL DB
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+#SQLALCHEMY_DATABASE_URI = os.environ.get('LOCAL_DATABASE_URL')
 #SQLALCHEMY_DATABASE_URI = 'postgresql://root:password@localhost/myapp'
 
 #Recaptcha Settings
