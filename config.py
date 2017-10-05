@@ -46,8 +46,8 @@ AUTH_TYPE=AUTH_DB
 OAUTH_PROVIDERS = [
 	 {'name':'twitter', 'icon':'fa-twitter',
 		 'remote_app': {
-			 'consumer_key': ENV['TWITTER_KEY'],
-			 'consumer_secret': ENV['TWITTER_SECRET'],
+			 'consumer_key': os.environ.get('TWITTER_KEY'),
+			 'consumer_secret': os.environ.get('TWITTER_SECRET'),
 			 'base_url': 'https://api.twitter.com/1.1/',
 			 'request_token_url': 'https://api.twitter.com/oauth/request_token',
 			 'access_token_url': 'https://api.twitter.com/oauth/access_token',
@@ -56,8 +56,8 @@ OAUTH_PROVIDERS = [
 	,
 	{'name': 'google', 'icon': 'fa-google', 'token_key': 'access_token',
 		'remote_app': {
-			'consumer_key':  ENV['GOOGLE_KEY'],
-			'consumer_secret':  ENV['GOOGLE_SECRET'],
+			'consumer_key':  os.environ.get('GOOGLE_KEY'),
+			'consumer_secret':  os.environ.get('GOOGLE_SECRET'),
 			'base_url': 'https://www.googleapis.com/oauth2/v2/',
 			'request_token_params': {
 			  'scope': 'email profile'
@@ -89,9 +89,9 @@ MAIL_PORT=587
 MAIL_USE_SSL=False
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_USE_TLS = True
-MAIL_USERNAME =  ENV['MAIL_USERNAME']
-MAIL_PASSWORD =  ENV['MAIL_PASSWORD']
-MAIL_DEFAULT_SENDER =  ENV['MAIL_DEFAULT_SENDER']
+MAIL_USERNAME =  os.environ.get('MAIL_USERNAME')
+MAIL_PASSWORD =  os.environ.get('MAIL_PASSWORD')
+MAIL_DEFAULT_SENDER =  os.environ.get('MAIL_DEFAULT_SENDER')
 
 # When using LDAP Auth, setup the ldap server
 #AUTH_LDAP_SERVER = "ldap://ldapserver.new"
