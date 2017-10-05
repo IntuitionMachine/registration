@@ -27,5 +27,11 @@ https://github.com/dpgaspar/Flask-AppBuilder/issues/46
 https://github.com/dpgaspar/Flask-AppBuilder/issues/258
 https://github.com/dpgaspar/Flask-AppBuilder/issues/254
 
+
+#RASA NLU
 https://dzone.com/articles/building-an-intelligent-chatbot-using-botkit-and-r
 https://velotio.com/blog/2017/5/5/building-an-intelligent-chatbot-using-botkit-and-rasa
+
+
+#DOCKER
+https://www.youtube.com/watch?v=YFl2mCHdv24
