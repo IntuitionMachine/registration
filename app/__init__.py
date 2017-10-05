@@ -28,6 +28,7 @@ sample Facebook Page is https://www.facebook.com/Bots-and-Cryptocurrency-1651086
 """
 from .forms import MyRegisterUserDBForm
 from flask_babel import lazy_gettext
+import os
 #Credentials For OpenWeatherAPI
 
 OWMKEY=os.environ.get('OWMKEY')
