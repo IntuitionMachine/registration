@@ -33,5 +33,21 @@ https://dzone.com/articles/building-an-intelligent-chatbot-using-botkit-and-r
 https://velotio.com/blog/2017/5/5/building-an-intelligent-chatbot-using-botkit-and-rasa
 
 
+#MS C++ ERROR
+https://stackoverflow.com/questions/32445763/a-setup-package-is-either-missing-or-damaged-error-while-installing-visual-stu
+
 #DOCKER
 https://www.youtube.com/watch?v=YFl2mCHdv24
+DOCKER ERROR
+https://stackoverflow.com/questions/41182714/unable-to-start-docker-in-windows-10-hyper-v-error-is-thrown
+netsh interface ipv4 set address name="vEthernet (DockerNAT)" static 10.0.75.1 255.255.255.0
+
+
+
+# LINUX OS (BASH only on windows)
+https://www.youtube.com/watch?v=GVnouczyaDI
+https://www.youtube.com/watch?v=2CqmbvkyS4E
+https://www.youtube.com/watch?v=DmsJHocTt84
+
+#Virtual Machine
+https://www.youtube.com/watch?v=GGorVpzZQwA&t=540s

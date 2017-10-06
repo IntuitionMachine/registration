@@ -3,21 +3,20 @@ from flask_appbuilder.security.manager import AUTH_OID, AUTH_REMOTE_USER, AUTH_D
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Your App secret key
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = ''
 # The SQLAlchemy connection string.
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 
 #HEROKU REMOTE DB
-SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
+#SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
 #LOCAL DB
-#SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:admin@localhost/intuitionmachine'
+SQLALCHEMY_DATABASE_URI = ''
 #SQLALCHEMY_DATABASE_URI = 'postgresql://root:password@localhost/myapp'
 
 #Recaptcha Settings
 #RECAPTCHA_USE_SSL = False
-RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY =  os.environ.get('RECAPTCHA_PRIVATE_KEY')
-
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY =  ''
 # Flask-WTF flag for CSRF
 CSRF_ENABLED = True
 
@@ -46,8 +45,8 @@ AUTH_TYPE=AUTH_DB
 OAUTH_PROVIDERS = [
 	 {'name':'twitter', 'icon':'fa-twitter',
 		 'remote_app': {
-			 'consumer_key': os.environ.get('TWITTER_KEY'),
-			 'consumer_secret': os.environ.get('TWITTER_SECRET'),
+			 'consumer_key':'',
+			 'consumer_secret':'',
 			 'base_url': 'https://api.twitter.com/1.1/',
 			 'request_token_url': 'https://api.twitter.com/oauth/request_token',
 			 'access_token_url': 'https://api.twitter.com/oauth/access_token',
@@ -56,8 +55,8 @@ OAUTH_PROVIDERS = [
 	,
 	{'name': 'google', 'icon': 'fa-google', 'token_key': 'access_token',
 		'remote_app': {
-			'consumer_key':  os.environ.get('GOOGLE_KEY'),
-			'consumer_secret':  os.environ.get('GOOGLE_SECRET'),
+			'consumer_key':'',
+			'consumer_secret':'',
 			'base_url': 'https://www.googleapis.com/oauth2/v2/',
 			'request_token_params': {
 			  'scope': 'email profile'
@@ -89,9 +88,9 @@ MAIL_PORT=587
 MAIL_USE_SSL=False
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_USE_TLS = True
-MAIL_USERNAME =  os.environ.get('MAIL_USERNAME')
-MAIL_PASSWORD =  os.environ.get('MAIL_PASSWORD')
-MAIL_DEFAULT_SENDER =  os.environ.get('MAIL_DEFAULT_SENDER')
+MAIL_USERNAME =  ''
+MAIL_PASSWORD =  ''
+MAIL_DEFAULT_SENDER =  ''
 
 # When using LDAP Auth, setup the ldap server
 #AUTH_LDAP_SERVER = "ldap://ldapserver.new"

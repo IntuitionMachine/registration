@@ -31,14 +31,14 @@ from flask_babel import lazy_gettext
 import os
 #Credentials For OpenWeatherAPI
 
-OWMKEY=os.environ.get('OWMKEY')
+OWMKEY=''
 #FB Credentials
-VERIFY_TOKEN=os.environ.get('VERIFY_TOKEN')
-PAT = os.environ.get('PAT')
+VERIFY_TOKEN= ''
+PAT =  ''
 #API AI Credentials
-#CLIENT_ACCESS_TOKEN=os.environ.get('CLIENT_ACCESS_TOKEN')
+CLIENT_ACCESS_TOKEN=''
 
-ai=apiai.ApiAI(os.environ.get('CLIENT_ACCESS_TOKEN'))
+ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 logging.getLogger().setLevel(logging.DEBUG)
@@ -48,7 +48,7 @@ app.config.from_object('config')
 db = SQLA(app)
 
 appbuilder = AppBuilder(app, db.session,indexview=MyIndexView,security_manager_class=MySecurityManager)
-ai=apiai.ApiAI(os.environ.get('CLIENT_ACCESS_TOKEN'))
+ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 from flask_mail import Mail,Message
 from flask_appbuilder.baseviews import expose
 from flask_appbuilder.security.registerviews import RegisterUserDBView

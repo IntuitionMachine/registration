@@ -1,7 +1,7 @@
  $(function() {
  $("#chatheader").click(function(){
 	$("#chatContainer").slideToggle();
-	$.get( "http://localhost:8080/querychatbot/"+"hi",    //initialize conversation by saying hi
+	$.get( "http://localhost:5000/querychatbot/"+"hi",    //initialize conversation by saying hi
 	function(data) {
 		var botdiv = document.createElement('div')
 		botdiv.setAttribute('class', 'chat bot');
@@ -18,7 +18,7 @@ $("#send").click(function(){
    div.setAttribute('class', 'chat self');
    div.innerHTML = '<div class='+'user-photo'+'></div>' +'<p class='+ 'chat-message'+'>'+ message+'</p>';
    $("#chatlogs").append(div);   
-	 $.get( "http://localhost:8080/querychatbot/"+message,    //using localhost since app is not yet deployed
+	 $.get( "http://localhost:5000/querychatbot/"+message,    //using localhost since app is not yet deployed
 	function(data) {
 		var botdiv = document.createElement('div')
 		botdiv.setAttribute('class', 'chat bot');
