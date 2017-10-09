@@ -3,7 +3,8 @@ from flask_appbuilder.security.manager import AUTH_OID, AUTH_REMOTE_USER, AUTH_D
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Your App secret key
-SECRET_KEY = ''
+SECRET_KEY =  os.environ.get('SECRET_KEY')
+print(SECRET_KEY)
 # The SQLAlchemy connection string.
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 
@@ -11,12 +12,12 @@ SECRET_KEY = ''
 #SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
 #LOCAL DB
 #SQLALCHEMY_DATABASE_URI = ''
-SQLALCHEMY_DATABASE_URI = ''
+SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
 
 #Recaptcha Settings
 #RECAPTCHA_USE_SSL = False
-RECAPTCHA_PUBLIC_KEY = ''
-RECAPTCHA_PRIVATE_KEY = ''
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 # Flask-WTF flag for CSRF
 CSRF_ENABLED = True
@@ -89,9 +90,9 @@ MAIL_PORT=587
 MAIL_USE_SSL=False
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_USE_TLS = True
-MAIL_USERNAME = ''
-MAIL_PASSWORD = ''
-MAIL_DEFAULT_SENDER = ''
+MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER')
 
 # When using LDAP Auth, setup the ldap server
 #AUTH_LDAP_SERVER = "ldap://ldapserver.new"
@@ -150,4 +151,5 @@ APP_THEME = "readable.css"
 #APP_THEME = "spacelab.css"
 #APP_THEME = "united.css"
 #APP_THEME = "yeti.css"
+
 

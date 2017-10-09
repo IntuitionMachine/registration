@@ -10,8 +10,8 @@ from app.index import MyIndexView
 from .sec import MySecurityManager
 
 #chatterbot
-from chatterbot import ChatBot 
-from chatterbot.trainers import ChatterBotCorpusTrainer
+#from chatterbot import ChatBot 
+#from chatterbot.trainers import ChatterBotCorpusTrainer
 import requests
 import apiai
 import json
@@ -31,10 +31,11 @@ from flask_babel import lazy_gettext
 import os
 from flask_cors import CORS,cross_origin
 #Credentials For OpenWeatherAPI
-OWMKEY='edd197717da7951b85f8f6936fc27b13'
+OWMKEY=os.environ.get('OWMKEY')
 #FB Credentials
-VERIFY_TOKEN='abcd123'
-PAT ="EAACkXOgsTTEBAFdnUYxUurh8nCoCgWvNJ1jy2XNFM5M9DMG8P582KYAWCpztupmQGRXGZCp3yZBR13PnCoiaRO73JunN4waCNmr84Inl0LgsFZC3wCkLAY1Phh0RkDa6Eb5YVMggW309GKRQjGMuJTAiQIXLq3cyVUZCnxbxtQZDZD"
+VERIFY_TOKEN=os.environ.get('VERIFY_TOKEN')
+PAT =os.environ.get('PAT')
+
 #API AI Credentials
 CLIENT_ACCESS_TOKEN='70290e7963e543d392a19b33c4e8a90f'
 
@@ -46,6 +47,7 @@ logging.getLogger().setLevel(logging.DEBUG)
 app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS']='application/json'
+print(CLIENT_ACCESS_TOKEN)
 app.config.from_object('config')
 db = SQLA(app)
 
@@ -57,6 +59,10 @@ from flask_appbuilder.security.registerviews import RegisterUserDBView
 from random import randint,choice
 import string
 
+
+@app.route('/')
+def hello_world():
+    return 'hello world!'
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
 	#N=random.randint(6, 12)
