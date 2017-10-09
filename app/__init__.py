@@ -29,14 +29,14 @@ sample Facebook Page is https://www.facebook.com/Bots-and-Cryptocurrency-1651086
 from .forms import MyRegisterUserDBForm
 from flask_babel import lazy_gettext
 import os
+from flask_cors import CORS,cross_origin
 #Credentials For OpenWeatherAPI
-
-OWMKEY=''
+OWMKEY='edd197717da7951b85f8f6936fc27b13'
 #FB Credentials
-VERIFY_TOKEN= ''
-PAT =  ''
+VERIFY_TOKEN='abcd123'
+PAT ="EAACkXOgsTTEBAFdnUYxUurh8nCoCgWvNJ1jy2XNFM5M9DMG8P582KYAWCpztupmQGRXGZCp3yZBR13PnCoiaRO73JunN4waCNmr84Inl0LgsFZC3wCkLAY1Phh0RkDa6Eb5YVMggW309GKRQjGMuJTAiQIXLq3cyVUZCnxbxtQZDZD"
 #API AI Credentials
-CLIENT_ACCESS_TOKEN=''
+CLIENT_ACCESS_TOKEN='70290e7963e543d392a19b33c4e8a90f'
 
 ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 
@@ -44,6 +44,8 @@ logging.basicConfig(format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 logging.getLogger().setLevel(logging.DEBUG)
 
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS']='application/json'
 app.config.from_object('config')
 db = SQLA(app)
 
@@ -52,14 +54,14 @@ ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 from flask_mail import Mail,Message
 from flask_appbuilder.baseviews import expose
 from flask_appbuilder.security.registerviews import RegisterUserDBView
-import random
+from random import randint,choice
 import string
 
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
-	N=random.randint(6, 12)
-	return ''.join(random.choices(string.ascii_uppercase + string.digits, k=N))
-
+	#N=random.randint(6, 12)
+	#return ''.join(random.choices(string.ascii_uppercase + string.digits, k=N))
+	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
 @expose('/activation/<string:activation_hash>')
 def activation(activation_hash):
 		"""
@@ -175,7 +177,8 @@ def get_country_count():
 		print(countryStat)
 		return jsonify({'countries':countries ,'count':count})
 
-@app.route("/querychatbot/<query>")
+@app.route("/querychatbot/<query>" ,methods=['POST','GET','OPTIONS'])
+@cross_origin()
 def get_chatbot_response(query):
 	request = ai.text_request()
 	request.lang = 'de'  # optional, default value equal 'en'

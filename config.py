@@ -10,13 +10,14 @@ SECRET_KEY = ''
 #HEROKU REMOTE DB
 #SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
 #LOCAL DB
+#SQLALCHEMY_DATABASE_URI = ''
 SQLALCHEMY_DATABASE_URI = ''
-#SQLALCHEMY_DATABASE_URI = 'postgresql://root:password@localhost/myapp'
 
 #Recaptcha Settings
 #RECAPTCHA_USE_SSL = False
 RECAPTCHA_PUBLIC_KEY = ''
-RECAPTCHA_PRIVATE_KEY =  ''
+RECAPTCHA_PRIVATE_KEY = ''
+
 # Flask-WTF flag for CSRF
 CSRF_ENABLED = True
 
@@ -88,9 +89,9 @@ MAIL_PORT=587
 MAIL_USE_SSL=False
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_USE_TLS = True
-MAIL_USERNAME =  ''
-MAIL_PASSWORD =  ''
-MAIL_DEFAULT_SENDER =  ''
+MAIL_USERNAME = ''
+MAIL_PASSWORD = ''
+MAIL_DEFAULT_SENDER = ''
 
 # When using LDAP Auth, setup the ldap server
 #AUTH_LDAP_SERVER = "ldap://ldapserver.new"
