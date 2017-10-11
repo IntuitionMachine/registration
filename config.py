@@ -4,6 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Your App secret key
 SECRET_KEY =  os.environ.get('SECRET_KEY')
+print ('secret')
 print(SECRET_KEY)
 # The SQLAlchemy connection string.
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
@@ -13,7 +14,7 @@ print(SECRET_KEY)
 #LOCAL DB
 #SQLALCHEMY_DATABASE_URI = ''
 SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
-
+#SQLALCHEMY_DATABASE_URI='postgresql://postgres:admin@localhost/intuitionmachine'
 #Recaptcha Settings
 #RECAPTCHA_USE_SSL = False
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')

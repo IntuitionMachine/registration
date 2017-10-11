@@ -1,0 +1,12 @@
+description "Gunicorn application server running registration"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+setuid user
+setgid www-data
+
+env PATH=/var/www/registration/venv/bin
+chdir /var/www/registration
+exec gunicorn --workers 3 --bind unix:registration.sock -m 007 wsgi
