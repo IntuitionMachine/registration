@@ -37,7 +37,7 @@ VERIFY_TOKEN=os.environ.get('VERIFY_TOKEN')
 PAT =os.environ.get('PAT')
 
 #API AI Credentials
-CLIENT_ACCESS_TOKEN='70290e7963e543d392a19b33c4e8a90f'
+CLIENT_ACCESS_TOKEN=os.environ.get('CLIENT_ACCESS_TOKEN')
 
 ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 
@@ -75,7 +75,6 @@ def activation(activation_hash):
 			is sent to the user by email, when accessed the user is inserted
 			and activated
 		"""
-
 		activation_template='appbuilder/myactivation.html'
 		error_message=lazy_gettext('Not possible to register you at the moment, try again later')
 		false_error_message = lazy_gettext('Registration not found')
@@ -203,6 +202,8 @@ def get_chatbot_response(query):
 				print (context)
 				email=context['parameters']['email']
 				firstname=context['parameters']['given-name']
+			if db.session.query('ab_register_user').filter_by(email=email).first() || db.session.query('ab_register_user').filter_by(email=email).first():
+				return 'Sorry. Cannot save to database. This email has already been taken'
 			password=generate_random_password()
 			print ('password')
 			print(password)
@@ -214,8 +215,8 @@ def get_chatbot_response(query):
 					print ("Y")
 					appbuilder.sm.del_register_user(registeruser)
 					return 'Not possible to register(via chat) you at the moment, try again later'
-			else:
-				return 'Cannot save to Database. Username or Email might have been already taken'
+			#else:
+			#	return 'Cannot save to Database. Username or Email might have been already taken'
 		return (response['result']['fulfillment']['speech'])
 	else:
 		return ("Sorry, I couldn't understand that question")
