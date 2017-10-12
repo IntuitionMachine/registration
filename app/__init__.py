@@ -30,6 +30,9 @@ from .forms import MyRegisterUserDBForm
 from flask_babel import lazy_gettext
 import os
 from flask_cors import CORS,cross_origin
+from flask_sslify import SSLify  #to make all incoming request of Flask HTTPS
+
+
 #Credentials For OpenWeatherAPI
 OWMKEY=os.environ.get('OWMKEY')
 #FB Credentials
@@ -50,7 +53,7 @@ app.config['CORS_HEADERS']='application/json'
 print(CLIENT_ACCESS_TOKEN)
 app.config.from_object('config')
 db = SQLA(app)
-
+sslify = SSLify(app)
 appbuilder = AppBuilder(app, db.session,indexview=MyIndexView,security_manager_class=MySecurityManager)
 ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 from flask_mail import Mail,Message
@@ -58,7 +61,7 @@ from flask_appbuilder.baseviews import expose
 from flask_appbuilder.security.registerviews import RegisterUserDBView
 from random import randint,choice
 import string
-
+from flask_appbuilder.security.sqla.models import User,RegisterUser
 
 @app.route('/')
 def hello_world():
@@ -115,7 +118,8 @@ def send_subscription_email(registeruser,random_generated_password):
 	msg.subject = lazy_gettext('Account activation')
 	#base_url='http://localhost:8080' #change localhost if deployed
 	#base_url = 'https://ifabsampleapp.herokuapp.com'
-	base_url ='http://128.199.246.202'
+	#base_url ='http://128.199.246.202'
+	base_url-'https://intuitionmachine.ml'
 	url=base_url+'/register/activation/'+registeruser.registration_hash
 	print ('url')
 	print(url)
@@ -202,8 +206,8 @@ def get_chatbot_response(query):
 				print (context)
 				email=context['parameters']['email']
 				firstname=context['parameters']['given-name']
-			if db.session.query('ab_register_user').filter_by(email=email).first() || db.session.query('ab_register_user').filter_by(email=email).first():
-				return 'Sorry. Cannot save to database. This email has already been taken'
+			#if db.session.query(RegisterUser).filter_by(email=email).first() or db.session.query(User).filter_by(email=email).first():
+			#	return 'Sorry. Cannot save to database. This email has already been taken'
 			password=generate_random_password()
 			print ('password')
 			print(password)
