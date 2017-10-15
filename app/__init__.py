@@ -116,10 +116,11 @@ def send_subscription_email(registeruser,random_generated_password):
 	mail = Mail(app)
 	msg = Message()
 	msg.subject = lazy_gettext('Account activation')
-	#base_url='http://localhost:8080' #change localhost if deployed
+        #base_url='http://localhost:8080' #change localhost if deployed
 	#base_url = 'https://ifabsampleapp.herokuapp.com'
 	#base_url ='http://128.199.246.202'
-	base_url-'https://intuitionmachine.ml'
+	base_url='https://intuitionmachine.ml'
+	print(base_url)
 	url=base_url+'/register/activation/'+registeruser.registration_hash
 	print ('url')
 	print(url)
@@ -202,16 +203,16 @@ def get_chatbot_response(query):
 			contexts=response['result']['contexts']
 			print("type")
 			print (type(contexts))
+			email=''
 			for context in contexts:
 				print (context)
 				email=context['parameters']['email']
 				firstname=context['parameters']['given-name']
-			#if db.session.query(RegisterUser).filter_by(email=email).first() or db.session.query(User).filter_by(email=email).first():
-			#	return 'Sorry. Cannot save to database. This email has already been taken'
 			password=generate_random_password()
 			print ('password')
 			print(password)
-			registeruser = appbuilder.sm.add_register_user(email, firstname, firstname,email,password=password)
+			if len(email)>1:
+				registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
 			if registeruser:
 				if send_subscription_email(registeruser,password):
 					print("X")

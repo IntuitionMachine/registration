@@ -1,0 +1,50 @@
+[2017-10-15 10:35:12 +0000] [31998] [INFO] Starting gunicorn 19.7.1
+[2017-10-15 10:35:12 +0000] [31998] [INFO] Listening at: http://127.0.0.1:8000 (31998)
+[2017-10-15 10:35:12 +0000] [31998] [INFO] Using worker: sync
+[2017-10-15 10:35:12 +0000] [32001] [INFO] Booting worker with pid: 32001
+[2017-10-15 10:35:22 +0000] [31998] [INFO] Handling signal: int
+[2017-10-15 10:35:22 +0000] [32001] [INFO] Worker exiting (pid: 32001)
+[2017-10-15 10:35:22 +0000] [31998] [INFO] Shutting down: Master
+[2017-10-15 10:35:52 +0000] [32010] [INFO] Starting gunicorn 19.7.1
+[2017-10-15 10:35:52 +0000] [32010] [INFO] Listening at: http://127.0.0.1:8000 (32010)
+[2017-10-15 10:35:52 +0000] [32010] [INFO] Using worker: sync
+[2017-10-15 10:35:52 +0000] [32013] [INFO] Booting worker with pid: 32013
+[2017-10-15 10:36:06 +0000] [32010] [INFO] Handling signal: int
+[2017-10-15 10:36:06 +0000] [32013] [INFO] Worker exiting (pid: 32013)
+[2017-10-15 10:36:06 +0000] [32010] [INFO] Shutting down: Master
+[2017-10-15 10:36:42 +0000] [32021] [INFO] Starting gunicorn 19.7.1
+[2017-10-15 10:36:42 +0000] [32021] [INFO] Listening at: http://127.0.0.1:8000 (32021)
+[2017-10-15 10:36:42 +0000] [32021] [INFO] Using worker: sync
+[2017-10-15 10:36:42 +0000] [32024] [INFO] Booting worker with pid: 32024
+[2017-10-15 10:40:40 +0000] [32021] [CRITICAL] WORKER TIMEOUT (pid:32024)
+[2017-10-15 10:40:40 +0000] [32021] [INFO] Handling signal: hup
+[2017-10-15 10:40:40 +0000] [32021] [INFO] Hang up: Master
+[2017-10-15 10:40:40 +0000] [32115] [INFO] Booting worker with pid: 32115
+[2017-10-15 10:40:42 +0000] [32115] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/util.py", line 352, in import_app
+    __import__(module)
+  File "/var/www/registration/run.py", line 1, in <module>
+    from app import app
+  File "/var/www/registration/app/__init__.py", line 53, in <module>
+    print(CLIENT_ACCESS_TOKEN)
+OSError: [Errno 5] Input/output error
+[2017-10-15 10:40:42 +0000] [32115] [INFO] Worker exiting (pid: 32115)
+[2017-10-15 10:40:42 +0000] [32021] [INFO] Shutting down: Master
+[2017-10-15 10:40:42 +0000] [32021] [INFO] Reason: Worker failed to boot.
+[2017-10-15 10:53:27 +0000] [32289] [INFO] Starting gunicorn 19.7.1
+[2017-10-15 10:53:28 +0000] [32289] [INFO] Listening at: http://127.0.0.1:8000 (32289)
+[2017-10-15 10:53:28 +0000] [32289] [INFO] Using worker: sync
+[2017-10-15 10:53:28 +0000] [32292] [INFO] Booting worker with pid: 32292
