@@ -17,12 +17,14 @@ SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
 #SQLALCHEMY_DATABASE_URI='postgresql://postgres:admin@localhost/intuitionmachine'
 #Recaptcha Settings
 #RECAPTCHA_USE_SSL = False
+#RECAPTCHA_DISABLE=True
+TESTING=True #to not require recaptcha in testing mode
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 # Flask-WTF flag for CSRF
-CSRF_ENABLED = True
-
+#CSRF_ENABLED = True
+CRSF_ENABLED=False
 #------------------------------
 # GLOBALS FOR APP Builder 
 #------------------------------

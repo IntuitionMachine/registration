@@ -1,7 +1,7 @@
  $(function() {
  $("#chatheader").click(function(){
 	$("#chatContainer").slideToggle();
-	$.get("https://intuitionmachine.ml/querychatbot/"+"hi",		
+	$.get("http://chat.intuitionfabric/querychatbot/"+"hi",		
         function(data) {
 		var botdiv = document.createElement('div')
 		botdiv.setAttribute('class', 'chat bot');
@@ -18,7 +18,7 @@ $("#send").click(function(){
    div.setAttribute('class', 'chat self');
    div.innerHTML = '<div class='+'user-photo'+'></div>' +'<p class='+ 'chat-message'+'>'+ message+'</p>';
    $("#chatlogs").append(div);
-        $.get("https://intuitionmachine.ml/querychatbot/" + message,
+        $.get("http://chat.intuitionfabric.com/querychatbot/" + message,
         function(data) {
 		var botdiv = document.createElement('div')
 		botdiv.setAttribute('class', 'chat bot');

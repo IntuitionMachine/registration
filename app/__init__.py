@@ -53,7 +53,7 @@ app.config['CORS_HEADERS']='application/json'
 print(CLIENT_ACCESS_TOKEN)
 app.config.from_object('config')
 db = SQLA(app)
-sslify = SSLify(app)
+#sslify = SSLify(app)
 appbuilder = AppBuilder(app, db.session,indexview=MyIndexView,security_manager_class=MySecurityManager)
 ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 from flask_mail import Mail,Message

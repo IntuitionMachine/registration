@@ -48,3 +48,31 @@ OSError: [Errno 5] Input/output error
 [2017-10-15 10:53:28 +0000] [32289] [INFO] Listening at: http://127.0.0.1:8000 (32289)
 [2017-10-15 10:53:28 +0000] [32289] [INFO] Using worker: sync
 [2017-10-15 10:53:28 +0000] [32292] [INFO] Booting worker with pid: 32292
+[2017-10-15 11:38:54 +0000] [32289] [CRITICAL] WORKER TIMEOUT (pid:32292)
+[2017-10-15 11:38:54 +0000] [32289] [INFO] Handling signal: hup
+[2017-10-15 11:38:54 +0000] [32289] [INFO] Hang up: Master
+[2017-10-15 11:38:54 +0000] [921] [INFO] Booting worker with pid: 921
+[2017-10-15 11:38:55 +0000] [921] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/arbiter.py", line 578, in spawn_worker
+    worker.init_process()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/workers/base.py", line 126, in init_process
+    self.load_wsgi()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/workers/base.py", line 135, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/var/www/registration/venv/lib/python3.5/site-packages/gunicorn/util.py", line 352, in import_app
+    __import__(module)
+  File "/var/www/registration/run.py", line 1, in <module>
+    from app import app
+  File "/var/www/registration/app/__init__.py", line 53, in <module>
+    print(CLIENT_ACCESS_TOKEN)
+OSError: [Errno 5] Input/output error
+[2017-10-15 11:38:55 +0000] [921] [INFO] Worker exiting (pid: 921)
+[2017-10-15 11:38:55 +0000] [32289] [INFO] Shutting down: Master
+[2017-10-15 11:38:55 +0000] [32289] [INFO] Reason: Worker failed to boot.
