@@ -12,8 +12,8 @@ print(SECRET_KEY)
 #HEROKU REMOTE DB
 #SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
 #LOCAL DB
-#SQLALCHEMY_DATABASE_URI = ''
-SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+SQLALCHEMY_DATABASE_URI = 'postgres://zemynuctzazcqc:45f501e264c353e8f50799be1c76ebbbf0a8da35efcd3ffb41bd2b3e645a05e4@ec2-107-22-160-199.compute-1.amazonaws.com:5432/dc2v7il2jkb3qt'
+#SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
 #SQLALCHEMY_DATABASE_URI='postgresql://postgres:admin@localhost/intuitionmachine'
 #Recaptcha Settings
 #RECAPTCHA_USE_SSL = False
