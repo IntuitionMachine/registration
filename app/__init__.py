@@ -30,7 +30,7 @@ from .forms import MyRegisterUserDBForm
 from flask_babel import lazy_gettext
 import os
 from flask_cors import CORS,cross_origin
-from flask_sslify import SSLify  #to make all incoming request of Flask HTTPS
+#from flask_sslify import SSLify  #to make all incoming request of Flask HTTPS
 
 
 #Credentials For OpenWeatherAPI
