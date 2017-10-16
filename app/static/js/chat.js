@@ -2,7 +2,7 @@
  $("#chatheader").click(function(){
 	$("#chatContainer").slideToggle();
 	//$.get("http://chat.intuitionfabric/querychatbot/"+"hi",		
-        $.get("https://chat-intuitinfabric.herokuapp.com/querychatbot"+"hi",
+        $.get("https://chat-intuitionfabric.herokuapp.com/querychatbot/"+"hi",
 	function(data) {
 		var botdiv = document.createElement('div')
 		botdiv.setAttribute('class', 'chat bot');
