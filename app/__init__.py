@@ -212,7 +212,7 @@ def get_chatbot_response(query):
 			password=generate_random_password()
 			print ('password')
 			print(password)
-			if len(email)>1:
+			if email !='':
 				registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
 			if registeruser:
 				if send_subscription_email(registeruser,password):
