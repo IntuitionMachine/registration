@@ -1,8 +1,9 @@
  $(function() {
  $("#chatheader").click(function(){
 	$("#chatContainer").slideToggle();
-	$.get("http://chat.intuitionfabric/querychatbot/"+"hi",		
-        function(data) {
+	//$.get("http://chat.intuitionfabric/querychatbot/"+"hi",		
+        $.get("https://chat-intuitinfabric.herokuapp.com/querychatbot"+"hi",
+	function(data) {
 		var botdiv = document.createElement('div')
 		botdiv.setAttribute('class', 'chat bot');
 		botdiv.innerHTML = '<div class='+'bot-photo'+'></div>' +'<p class='+ 'chat-message'+'>'+data+'</p>';
@@ -18,8 +19,9 @@ $("#send").click(function(){
    div.setAttribute('class', 'chat self');
    div.innerHTML = '<div class='+'user-photo'+'></div>' +'<p class='+ 'chat-message'+'>'+ message+'</p>';
    $("#chatlogs").append(div);
-        $.get("http://chat.intuitionfabric.com/querychatbot/" + message,
-        function(data) {
+        //$.get("http://chat.intuitionfabric.com/querychatbot/" + message,
+        $.get("https://chat-intuitionfabric.herokuapp.com/querychatbot/" + message,
+	function(data) {
 		var botdiv = document.createElement('div')
 		botdiv.setAttribute('class', 'chat bot');
 		botdiv.innerHTML = '<div class='+'bot-photo'+'></div>' +'<p class='+ 'chat-message'+'>'+data+'</p>';

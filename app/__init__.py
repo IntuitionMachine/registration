@@ -119,7 +119,8 @@ def send_subscription_email(registeruser,random_generated_password):
         #base_url='http://localhost:8080' #change localhost if deployed
 	#base_url = 'https://ifabsampleapp.herokuapp.com'
 	#base_url ='http://128.199.246.202'
-	base_url='https://intuitionmachine.ml'
+	#base_url='https://intuitionmachine.ml'
+	base_url='https://chat-intuitionfabric.herokuapp.com'
 	print(base_url)
 	url=base_url+'/register/activation/'+registeruser.registration_hash
 	print ('url')
