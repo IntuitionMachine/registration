@@ -204,7 +204,7 @@ def get_chatbot_response(query):
 			contexts=response['result']['contexts']
 			print("type")
 			print (type(contexts))
-			email=''
+			
 			for context in contexts:
 				print (context)
 				email=context['parameters']['email']
@@ -212,8 +212,8 @@ def get_chatbot_response(query):
 			password=generate_random_password()
 			print ('password')
 			print(password)
-			if email !='':
-				registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
+			
+			registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
 			if registeruser:
 				if send_subscription_email(registeruser,password):
 					print("X")
