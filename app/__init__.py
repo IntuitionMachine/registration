@@ -146,7 +146,8 @@ def send_subscription_email(registeruser,random_generated_password):
 	subject = "Hello World from the SendGrid Python Library"
 	toEmail=   registeruser.email
 	to_email = Email(toEmail)
-	content = Content("text/plain", "hello..friend.")
+	#content = Content("text/plain", "hello..friend.")
+	content = Content("text/html",msg)
 	mail = Mail(from_email, subject, to_email, content)
 	try:
 		response=sg.client.mail.send.post(request_body=mail.get())
