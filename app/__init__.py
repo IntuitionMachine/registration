@@ -136,11 +136,11 @@ def send_subscription_email(registeruser,random_generated_password):
 	url=base_url+'/register/activation/'+registeruser.registration_hash
 	print ('url')
 	print(url)
-	msg.html = render_template('appbuilder/custom_register.html',username=registeruser.email,
+	msg = render_template('appbuilder/custom_register.html',username=registeruser.email,
 								   first_name=registeruser.first_name,
 								   password=random_generated_password,
 								   hash=registeruser.registration_hash,url=url,last_name=registeruser.last_name)
-	context=Context("text/html",msg.html)
+	context=Context("text/html",msg)
 	mail=Mail(from_email,subject,to_email,context)
 	#msg.recipients = [registeruser.email]
 	try:
