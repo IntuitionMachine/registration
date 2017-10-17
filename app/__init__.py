@@ -140,8 +140,11 @@ def send_subscription_email(registeruser,random_generated_password):
 								   first_name=registeruser.first_name,
 								   password=random_generated_password,
 								   hash=registeruser.registration_hash,url=url,last_name=registeruser.last_name)
+	print (msg)
 	content=Content("text/html",msg)
 	mail=Mail(from_email,subject,to_email,content)
+	print(mail)
+	print(type(mail))
 	#msg.recipients = [registeruser.email]
 	try:
 		#Flask_Mail
