@@ -186,6 +186,17 @@ def get_country_count():
 		print(countryStat)
 		return jsonify({'countries':countries ,'count':count})
 
+@app.route("/fbmessenger",methods=['GET'])
+def handle_verification():
+    '''Verifies facebook webhook subscription
+    	Successful when verify_token is same as token sent by facebook app
+    '''
+    if (request.args.get('hub.verify_token', '') == VERIFY_TOKEN):
+        print("succefully verified")
+        return request.args.get('hub.challenge', '')
+    else:
+        print("Wrong verification token!")
+        return "Wrong validation token"
 @app.route("/fbmessenger",methods=['POST'])
 def handle_message():
     '''Handle messages sent by facebook messenger to the applicaiton'''
