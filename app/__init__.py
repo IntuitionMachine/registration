@@ -207,7 +207,7 @@ def handle_message():
 					sender_id = messaging_event["sender"]["id"]
 					recipient_id = messaging_event["recipient"]["id"]
 					message_text = messaging_event["message"]["text"]
-					send_message_response(sender_id, parse_user_message(message_text))
+					send_message_response(sender_id, chatbot_response(message_text))
 
 	return "ok"
 def send_message(sender_id, message_text):
