@@ -66,7 +66,7 @@ from flask_appbuilder.security.sqla.models import User,RegisterUser
 import sendgrid
 from sendgrid.helpers.mail import *
 SENDGRID_API_KEY=os.environ.get('SENDGRID_API_KEY')
-sg=sendgrid.SendGridAPIClient(os.environ.get(SENDGRID_API_KEY))
+sg=sendgrid.SendGridAPIClient(SENDGRID_API_KEY)
 
 
 @app.route('/')
