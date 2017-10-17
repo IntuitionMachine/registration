@@ -41,12 +41,9 @@ PAT =os.environ.get('PAT')
 
 #API AI Credentials
 CLIENT_ACCESS_TOKEN=os.environ.get('CLIENT_ACCESS_TOKEN')
-
 ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
-
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 logging.getLogger().setLevel(logging.DEBUG)
-
 app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS']='application/json'
@@ -63,19 +60,14 @@ from flask_appbuilder.security.registerviews import RegisterUserDBView
 from random import randint,choice
 import string
 from flask_appbuilder.security.sqla.models import User,RegisterUser
+#Using Sendgrid  to send emails in heroku app instead of smtp.gmail
 from sendgrid  import *
 from sendgrid.helpers.mail import *
-#SENDGRID_API_KEY=os.environ.get('SENDGRID_API_KEY')
-#sg=sendgrid.SendGridAPIClient(SENDGRID_API_KEY)
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
 @app.route('/')
-def hello_world():
-    return 'hello world!'
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
-	#N=random.randint(6, 12)
-	#return ''.join(random.choices(string.ascii_uppercase + string.digits, k=N))
 	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
 @expose('/activation/<string:activation_hash>')
 def activation(activation_hash):
@@ -89,7 +81,7 @@ def activation(activation_hash):
 		false_error_message = lazy_gettext('Registration not found')
 		reg = appbuilder.sm.find_register_user(activation_hash)
 		if not reg:
-			#print('0')
+			print('1')
 			log.error(c.LOGMSG_ERR_SEC_NO_REGISTER_HASH.format(activation_hash))
 			flash(as_unicode(false_error_message), 'danger')
 			print(appbuilder.get_url_for_index)
@@ -102,51 +94,35 @@ def activation(activation_hash):
 													   appbuilder.sm.auth_user_registration_role),
 											   hashed_password=reg.password):
 			flash(as_unicode(error_message), 'danger')
-			#print('1')
 			print(appbuilder.get_url_for_index)
 			return redirect(appbuilder.get_url_for_index)
 		else:
 			print('2')
 			appbuilder.sm.del_register_user(reg)
-			#print ('here')
 			return render_template(activation_template,
 							   username=reg.username,
 							   first_name=reg.first_name,
 							   last_name=reg.last_name,
 							   appbuilder=appbuilder)
 def send_subscription_email(registeruser,random_generated_password):
-	print ('hash')
-	print (registeruser.registration_hash)
 	email_template='custom_register.html' # default register mail from flask_appbuilder
-	print(email_template)
 	#Using sendgrid instead of Flask_Mail for heroku
-	#mail = Mail(app)
-	#msg = Message()
-	#msg.subject = lazy_gettext('Account activation')
         #base_url='http://localhost:8080' #change localhost if deployed
 	#base_url = 'https://ifabsampleapp.herokuapp.com'
-	#base_url ='http://128.199.246.202'
 	#base_url='https://intuitionmachine.ml'
 	base_url='https://chat-intuitionfabric.herokuapp.com'
 	print(base_url)
 	url=base_url+'/register/activation/'+registeruser.registration_hash
-	print ('url')
-	print(url)
 	content=Content("text/plain","hello world")
-	print(content)
-	print(type(content))
 	msg = render_template('appbuilder/custom_register.html',username=registeruser.email,
 								   first_name=registeruser.first_name,
 								   password=random_generated_password,
 								   hash=registeruser.registration_hash,url=url,last_name=registeruser.last_name)
-	print (msg)
 	fromEmail=os.environ.get('MAIL_USERNAME')
-	print(fromEmail)
 	from_email = Email("eduardofranivaldez@gmail.com")
-	subject = "Hello World from the SendGrid Python Library"
+	subject = "Intuition Fabric Account Activation"
 	toEmail=   registeruser.email
 	to_email = Email(toEmail)
-	#content = Content("text/plain", "hello..friend.")
 	content = Content("text/html",msg)
 	mail = Mail(from_email, subject, to_email, content)
 	try:
@@ -190,7 +166,7 @@ def update_user(id,oldCountry,countryData,ipaddr):
 			if updateCountry:
 				updateCountry.count-=1
 				print("old")
-	if tempCountry: #if country already exists      
+	if tempCountry: #if country already exists
 		tempCountry.count+=1
 		print("+1")
 	else:

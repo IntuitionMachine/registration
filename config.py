@@ -4,16 +4,14 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Your App secret key
 SECRET_KEY =  os.environ.get('SECRET_KEY')
-print ('secret')
-print(SECRET_KEY)
 # The SQLAlchemy connection string.
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 
 #HEROKU REMOTE DB
 #SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
 #LOCAL DB
-SQLALCHEMY_DATABASE_URI = 'postgres://zemynuctzazcqc:45f501e264c353e8f50799be1c76ebbbf0a8da35efcd3ffb41bd2b3e645a05e4@ec2-107-22-160-199.compute-1.amazonaws.com:5432/dc2v7il2jkb3qt'
-#SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+#SQLALCHEMY_DATABASE_URI = ''
+SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
 #SQLALCHEMY_DATABASE_URI='postgresql://postgres:admin@localhost/intuitionmachine'
 #Recaptcha Settings
 #RECAPTCHA_USE_SSL = False
@@ -148,7 +146,7 @@ IMG_UPLOAD_URL = '/static/uploads/'
 #APP_THEME = "cerulean.css"
 #APP_THEME = "amelia.css"
 #APP_THEME = "cosmo.css"
-#APP_THEME = "cyborg.css"  
+#APP_THEME = "cyborg.css"
 #APP_THEME = "flatly.css"
 #APP_THEME = "journal.css"
 APP_THEME = "readable.css"
