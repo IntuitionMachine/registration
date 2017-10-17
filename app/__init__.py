@@ -63,7 +63,7 @@ from flask_appbuilder.security.registerviews import RegisterUserDBView
 from random import randint,choice
 import string
 from flask_appbuilder.security.sqla.models import User,RegisterUser
-from sendgrid *
+from sendgrid  import *
 from sendgrid.helpers.mail import *
 #SENDGRID_API_KEY=os.environ.get('SENDGRID_API_KEY')
 #sg=sendgrid.SendGridAPIClient(SENDGRID_API_KEY)
@@ -147,11 +147,9 @@ def send_subscription_email(registeruser,random_generated_password):
 	#content=Content("text/html",msg)
 	content=Content('text/plain','hello')
 	print(content)
-	
 	mail=Mail(from_email,subject,to_email,content)
 	#mail=Mail()
-	#mail.subject='hey'
-	
+	#mail.subject='hey'	
 	print(mail)
 	print(type(mail))
 	print('mail')
