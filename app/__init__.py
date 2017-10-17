@@ -65,7 +65,6 @@ from sendgrid  import *
 from sendgrid.helpers.mail import *
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
-@app.route('/')
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
 	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
@@ -107,7 +106,7 @@ def activation(activation_hash):
 def send_subscription_email(registeruser,random_generated_password):
 	email_template='custom_register.html' # default register mail from flask_appbuilder
 	#Using sendgrid instead of Flask_Mail for heroku
-        #base_url='http://localhost:8080' #change localhost if deployed
+		#base_url='http://localhost:8080' #change localhost if deployed
 	#base_url = 'https://ifabsampleapp.herokuapp.com'
 	#base_url='https://intuitionmachine.ml'
 	base_url='https://chat-intuitionfabric.herokuapp.com'
@@ -188,76 +187,79 @@ def get_country_count():
 
 @app.route("/fbmessenger",methods=['GET'])
 def handle_verification():
-    '''Verifies facebook webhook subscription
-    	Successful when verify_token is same as token sent by facebook app
-    '''
-    if (request.args.get('hub.verify_token', '') == VERIFY_TOKEN):
-        print("succefully verified")
-        return request.args.get('hub.challenge', '')
-    else:
-        print("Wrong verification token!")
-        return "Wrong validation token"
+	'''Verifies facebook webhook subscription
+		Successful when verify_token is same as token sent by facebook app
+	'''
+	if (request.args.get('hub.verify_token', '') == VERIFY_TOKEN):
+		print("succefully verified")
+		return request.args.get('hub.challenge', '')
+	else:
+		print("Wrong verification token!")
+		return "Wrong validation token"
 @app.route("/fbmessenger",methods=['POST'])
 def handle_message():
-    '''Handle messages sent by facebook messenger to the applicaiton'''
-    data = request.get_json()
+	'''Handle messages sent by facebook messenger to the applicaiton'''
+	data = request.get_json()
+	if data["object"] == "page":
+		for entry in data["entry"]:
+			for messaging_event in entry["messaging"]:
+				if messaging_event.get("message"):
+					sender_id = messaging_event["sender"]["id"]
+					recipient_id = messaging_event["recipient"]["id"]
+					message_text = messaging_event["message"]["text"]
+					send_message_response(sender_id, parse_user_message(message_text))
 
-    if data["object"] == "page":
-        for entry in data["entry"]:
-            for messaging_event in entry["messaging"]:
-                if messaging_event.get("message"):
-                    sender_id = messaging_event["sender"]["id"]
-                    recipient_id = messaging_event["recipient"]["id"]
-                    message_text = messaging_event["message"]["text"]
-                    send_message_response(sender_id, parse_user_message(message_text))
-
-    return "ok"
+	return "ok"
 def send_message(sender_id, message_text):
-    '''Sending response back to the user using facebook graph API'''
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages",
-
-        params={"access_token": PAT},
-        headers={"Content-Type": "application/json"},
-        data=json.dumps({
-        "recipient": {"id": sender_id},
-        "message": {"text": message_text}
-    }))
+	'''Sending response back to the user using facebook graph API'''
+	r = requests.post("https://graph.facebook.com/v2.6/me/messages",
+		params={"access_token": PAT},
+		headers={"Content-Type": "application/json"},
+		data=json.dumps({
+		"recipient": {"id": sender_id},
+		"message": {"text": message_text}
+	}))
 def chatbot_response(userQuery):
-        request = ai.text_request()
-        request.lang = 'de'  # optional, default value equal 'en'
-        #request.session_id = "" #add unique session ID for each user
-        request.query = userQuery
-        response = json.loads(request.getresponse().read().decode('utf-8'))
-        responseStatus = response['status']['code']
-        if (responseStatus == 200):
-                print(type(response['result']['fulfillment']['speech']))
-                if 'subscribing' in response['result']['fulfillment']['speech']:
-                        contexts=response['result']['contexts']
-                        print("type")
-                        print (type(contexts))
-                        email=''
-                        for context in contexts:
-                                print (context)
-                                email=context['parameters']['email']
-                                firstname=context['parameters']['given-name']
-                        password=generate_random_password()
-                        print ('password')
-                        print(password)
-                        if len(email)>1:
-                                registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
-                                if registeruser:
-                                        if send_subscription_email(registeruser,password):
-                                                print("X")
-                                        else:
-                                                print ("Y")
-                                                appbuilder.sm.del_register_user(registeruser)
-                                                return 'Not possible to register(via chat) you at the moment, try again later'
-                        #else:
-                        #       return 'Cannot save to Database. Username or Email might have been already taken'
-			        return (response['result']['fulfillment']['speech'])
-        else:
-                return ("Sorry, I couldn't understand that question")
+	request = ai.text_request()
+	request.lang = 'de'  # optional, default value equal 'en'
+		#request.session_id = "" #add unique session ID for each user
+	request.query = userQuery
+	response = json.loads(request.getresponse().read().decode('utf-8'))
+	responseStatus = response['status']['code']
+	if (responseStatus == 200):
+		print(type(response['result']['fulfillment']['speech']))
+		if 'subscribing' in response['result']['fulfillment']['speech']:
+			contexts=response['result']['contexts']
+			print("type")
+			print (type(contexts))
+			email=''
+			for context in contexts:
+				print (context)
+				email=context['parameters']['email']
+				firstname=context['parameters']['given-name']
+				password=generate_random_password()
+				print(password)
+				if len(email)>1:
+					registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
+					if registeruser:
+						if send_subscription_email(registeruser,password):
+							print("X")
+						else:
+							print ("Y")
+							appbuilder.sm.del_register_user(registeruser)
+					return 'Not possible to register(via chat) you at the moment, try again later'
+				#else:
+				#	   return 'Cannot save to Database. Username or Email might have been already taken'
+		return (response['result']['fulfillment']['speech'])
+	else:
+		return ("Sorry, I couldn't understand that question")
 
+
+def send_message_response(sender_id,message_text):
+	sentenceDelimiter="."
+	messages = message_text.split(sentenceDelimeter)
+	for message in messages:
+		send_message(sender_id,message)
 
 @app.route("/querychatbot/<query>" ,methods=['POST','GET','OPTIONS'])
 @cross_origin()
@@ -296,6 +298,8 @@ def get_chatbot_response(query):
 		return (response['result']['fulfillment']['speech'])
 	else:
 		return ("Sorry, I couldn't understand that question")
+
+
 """
 from sqlalchemy.engine import Engine
 from sqlalchemy import event
@@ -306,6 +310,6 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
 	cursor = dbapi_connection.cursor()
 	cursor.execute("PRAGMA foreign_keys=ON")
 	cursor.close()
-"""    
+"""	
 from app import models,views
 db.create_all()
