@@ -120,10 +120,6 @@ def send_subscription_email(registeruser,random_generated_password):
 	email_template='custom_register.html' # default register mail from flask_appbuilder
 	print(email_template)
 	#Using sendgrid instead of Flask_Mail for heroku
-	fromEmail=os.environ.get('MAIL_USERNAME')
-	from_email=Email(fromEmail)
-	subject = "From sendgrid"
-	to_email= Email(registeruser.email)
 	#mail = Mail(app)
 	#msg = Message()
 	#msg.subject = lazy_gettext('Account activation')
@@ -144,27 +140,20 @@ def send_subscription_email(registeruser,random_generated_password):
 								   password=random_generated_password,
 								   hash=registeruser.registration_hash,url=url,last_name=registeruser.last_name)
 	print (msg)
-	#content=Content("text/html",msg)
-	content=Content('text/plain','hello')
-	print(content)
-	mail=Mail(from_email,subject,to_email,content)
-	#mail=Mail()
-	#mail.subject='hey'	
-	print(mail)
-	print(type(mail))
-	print('mail')
-
-	#msg.recipients = [registeruser.email]
+	fromEmail=os.environ.get('MAIL_USERNAME')
+	print(fromEmail)
+	from_email = Email("eduardofranivaldez@gmail.com")
+	subject = "Hello World from the SendGrid Python Library"
+	toEmail=   registeruser.email
+	to_email = Email(toEmail)
+	content = Content("text/plain", "hello..friend.")
+	mail = Mail(from_email, subject, to_email, content)
 	try:
-		#Flask_Mail
-		#mail.send(msg)
-		#SendGrid
 		response=sg.client.mail.send.post(request_body=mail.get())
 		print(response.status_code)
 		print(response.body)
 		print(response.headers)
 	except Exception as e:
-		#log.error("Send email exception: {0}".format(str(e)))
 		print ("Send email exception: {0}".format(str(e)))
 		return False
 	return True
