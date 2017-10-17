@@ -224,7 +224,7 @@ def get_chatbot_response(query):
 			contexts=response['result']['contexts']
 			print("type")
 			print (type(contexts))
-			
+			email=''
 			for context in contexts:
 				print (context)
 				email=context['parameters']['email']
@@ -232,15 +232,15 @@ def get_chatbot_response(query):
 			password=generate_random_password()
 			print ('password')
 			print(password)
-			
-			registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
-			if registeruser:
-				if send_subscription_email(registeruser,password):
-					print("X")
-				else:
-					print ("Y")
-					appbuilder.sm.del_register_user(registeruser)
-					return 'Not possible to register(via chat) you at the moment, try again later'
+			if len(email)>1:
+				registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
+				if registeruser:
+					if send_subscription_email(registeruser,password):
+						print("X")
+					else:
+						print ("Y")
+						appbuilder.sm.del_register_user(registeruser)
+						return 'Not possible to register(via chat) you at the moment, try again later'
 			#else:
 			#	return 'Cannot save to Database. Username or Email might have been already taken'
 		return (response['result']['fulfillment']['speech'])
