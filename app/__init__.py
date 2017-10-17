@@ -247,7 +247,7 @@ def chatbot_response(userQuery):
 						else:
 							print ("Y")
 							appbuilder.sm.del_register_user(registeruser)
-					return 'Not possible to register(via chat) you at the moment, try again later'
+							return 'Not possible to register(via chat) you at the moment, try again later'
 				#else:
 				#	   return 'Cannot save to Database. Username or Email might have been already taken'
 		return (response['result']['fulfillment']['speech'])
