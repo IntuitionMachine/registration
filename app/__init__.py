@@ -123,7 +123,6 @@ def send_subscription_email(registeruser,random_generated_password):
 	from_email=os.environ.get('MAIL_USERNAME')
 	subject = 'From sendgrid'
 	to_email= registeruser.email
-	
 	#mail = Mail(app)
 	#msg = Message()
 	#msg.subject = lazy_gettext('Account activation')
@@ -136,14 +135,17 @@ def send_subscription_email(registeruser,random_generated_password):
 	url=base_url+'/register/activation/'+registeruser.registration_hash
 	print ('url')
 	print(url)
+	content=Content("text/plain","hello world")
+	print(content)
+	print(type(content))
 	msg = render_template('appbuilder/custom_register.html',username=registeruser.email,
 								   first_name=registeruser.first_name,
 								   password=random_generated_password,
 								   hash=registeruser.registration_hash,url=url,last_name=registeruser.last_name)
 	print (msg)
 	#content=Content("text/html",msg)
-	content=Content('text/plain','hello')
-	print(content)
+	#content=Content('text/plain','hello')
+	#print(content)
 	mail=Mail(from_email,subject,to_email,content)
 	print(mail)
 	print(type(mail))
@@ -151,7 +153,6 @@ def send_subscription_email(registeruser,random_generated_password):
 	try:
 		#Flask_Mail
 		#mail.send(msg)
-
 		#SendGrid
 		response=sg.client.mail.send.post(request_body=mail.get())
 		print(response.status_code)
