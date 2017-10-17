@@ -186,6 +186,68 @@ def get_country_count():
 		print(countryStat)
 		return jsonify({'countries':countries ,'count':count})
 
+@app.route("/fbmessenger",methods=['POST'])
+def handle_message():
+    '''Handle messages sent by facebook messenger to the applicaiton'''
+    data = request.get_json()
+
+    if data["object"] == "page":
+        for entry in data["entry"]:
+            for messaging_event in entry["messaging"]:
+                if messaging_event.get("message"):
+                    sender_id = messaging_event["sender"]["id"]
+                    recipient_id = messaging_event["recipient"]["id"]
+                    message_text = messaging_event["message"]["text"]
+                    send_message_response(sender_id, parse_user_message(message_text))
+
+    return "ok"
+def send_message(sender_id, message_text):
+    '''Sending response back to the user using facebook graph API'''
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages",
+
+        params={"access_token": PAT},
+        headers={"Content-Type": "application/json"},
+        data=json.dumps({
+        "recipient": {"id": sender_id},
+        "message": {"text": message_text}
+    }))
+def chatbot_response(userQuery):
+        request = ai.text_request()
+        request.lang = 'de'  # optional, default value equal 'en'
+        #request.session_id = "" #add unique session ID for each user
+        request.query = userQuery
+        response = json.loads(request.getresponse().read().decode('utf-8'))
+        responseStatus = response['status']['code']
+        if (responseStatus == 200):
+                print(type(response['result']['fulfillment']['speech']))
+                if 'subscribing' in response['result']['fulfillment']['speech']:
+                        contexts=response['result']['contexts']
+                        print("type")
+                        print (type(contexts))
+                        email=''
+                        for context in contexts:
+                                print (context)
+                                email=context['parameters']['email']
+                                firstname=context['parameters']['given-name']
+                        password=generate_random_password()
+                        print ('password')
+                        print(password)
+                        if len(email)>1:
+                                registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
+                                if registeruser:
+                                        if send_subscription_email(registeruser,password):
+                                                print("X")
+                                        else:
+                                                print ("Y")
+                                                appbuilder.sm.del_register_user(registeruser)
+                                                return 'Not possible to register(via chat) you at the moment, try again later'
+                        #else:
+                        #       return 'Cannot save to Database. Username or Email might have been already taken'
+			        return (response['result']['fulfillment']['speech'])
+        else:
+                return ("Sorry, I couldn't understand that question")
+
+
 @app.route("/querychatbot/<query>" ,methods=['POST','GET','OPTIONS'])
 @cross_origin()
 def get_chatbot_response(query):
