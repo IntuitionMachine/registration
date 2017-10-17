@@ -63,7 +63,7 @@ from flask_appbuilder.security.registerviews import RegisterUserDBView
 from random import randint,choice
 import string
 from flask_appbuilder.security.sqla.models import User,RegisterUser
-import sendgrid
+from sendgrid *
 from sendgrid.helpers.mail import *
 #SENDGRID_API_KEY=os.environ.get('SENDGRID_API_KEY')
 #sg=sendgrid.SendGridAPIClient(SENDGRID_API_KEY)
@@ -120,9 +120,10 @@ def send_subscription_email(registeruser,random_generated_password):
 	email_template='custom_register.html' # default register mail from flask_appbuilder
 	print(email_template)
 	#Using sendgrid instead of Flask_Mail for heroku
-	from_email=os.environ.get('MAIL_USERNAME')
-	subject = 'From sendgrid'
-	to_email= registeruser.email
+	fromEmail=os.environ.get('MAIL_USERNAME')
+	from_email=Email(fromEmail)
+	subject = "From sendgrid"
+	to_email= Email(registeruser.email)
 	#mail = Mail(app)
 	#msg = Message()
 	#msg.subject = lazy_gettext('Account activation')
@@ -144,11 +145,17 @@ def send_subscription_email(registeruser,random_generated_password):
 								   hash=registeruser.registration_hash,url=url,last_name=registeruser.last_name)
 	print (msg)
 	#content=Content("text/html",msg)
-	#content=Content('text/plain','hello')
-	#print(content)
+	content=Content('text/plain','hello')
+	print(content)
+	
 	mail=Mail(from_email,subject,to_email,content)
+	#mail=Mail()
+	#mail.subject='hey'
+	
 	print(mail)
 	print(type(mail))
+	print('mail')
+
 	#msg.recipients = [registeruser.email]
 	try:
 		#Flask_Mail
