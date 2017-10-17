@@ -256,7 +256,7 @@ def chatbot_response(userQuery):
 
 
 def send_message_response(sender_id,message_text):
-	sentenceDelimiter="."
+	sentenceDelimeter="."
 	messages = message_text.split(sentenceDelimeter)
 	for message in messages:
 		send_message(sender_id,message)
