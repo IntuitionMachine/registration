@@ -304,16 +304,24 @@ def get_chatbot_response(query):
 			password=generate_random_password()
 			print ('password')
 			print(password)
+			print ('email')
+			print(email)
+			print ('name')
+			print (firstname)
 			if len(email)>1 and len(firstname)<1:
 				#registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
 				firstname=email
 			if len(email)>1 and len(firstname)>1:
+				print ('sup')
+				print (appbuilder.sm.find_role(appbuilder.sm.))
 				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name=firstname,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password)
 				if registeruser:
+					print('a')
 					send_subscription_email(registeruser,password)
 					#Should we try to catch email ?
 					return("Thanks for subscribing, %s! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in."%(firstname,email,password))
 				else:
+					print('b')
 					return ("Sorry, we cannot register you at the moment. Please try again later.")
 				#if registeruser:
 				#	if send_subscription_email(registeruser,password):
