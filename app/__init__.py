@@ -64,7 +64,6 @@ from flask_appbuilder.security.sqla.models import User,RegisterUser
 from sendgrid  import *
 from sendgrid.helpers.mail import *
 
-#
 from werkzeug.security import generate_password_hash
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
@@ -246,10 +245,20 @@ def chatbot_response(userQuery):
 			for context in contexts:
 				print (context)
 				email=context['parameters']['email']
-				firstname=context['parameters']['given-name']
+				try:
+					firstname=context['parameters']['given-name']
+				except:
+					print ("given name failed again.")
 			password=generate_random_password()
 			print('password')
 			print(password)
+			print('email')
+			print(email)
+			print('name')
+			print(name)
+			if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser.filter_by(email=email).first() :
+				return ("Sorry, there is already an account associated with %s. Please use another email address."%email)
+			#else
 			if len(email)>1 and len(firstname)<1:
 				firstname=email
 			if len(email)>1 and len(firstname)>1:
@@ -261,15 +270,7 @@ def chatbot_response(userQuery):
 					return ("Thanks for subscribing %s! Your username is %s and temporary password is %s. Feel free to change your password in the settings menu. "%(firstname,email,password))
 				else:
 					return ("Sorry,cannot register you at the moment. Please try again later. Thanks")
-				#if registeruser:
-				#	if send_subscription_email(registeruser,password):
-				#		print("X")
-				#	else:
-				#		print ("Y")
-				#		appbuilder.sm.del_register_user(registeruser)
-				#		return 'Not possible to register(via chat) you at the moment, try again later'
-				#else:
-				#	   return 'Cannot save to Database. Username or Email might have been already taken'
+
 		return (response['result']['fulfillment']['speech'])
 	else:
 		return ("Sorry, I couldn't understand that question")
@@ -301,7 +302,10 @@ def get_chatbot_response(query):
 			for context in contexts:
 				print (context)
 				email=context['parameters']['email']
-				firstname=context['parameters']['given-name']
+				try:
+					firstname=context['parameters']['given-name']
+				except:
+					print("given name failed again.")
 			password=generate_random_password()
 			print ('password')
 			print(password)
@@ -309,31 +313,21 @@ def get_chatbot_response(query):
 			print(email)
 			print ('name')
 			print (firstname)
+			if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser.filter_by(email=email).first() :
+				return ("Sorry mate. There is already an account associated with %s. Try using another email."%email)
 			if len(email)>1 and len(firstname)<1:
+				print("given name failed.")
 				#registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
 				firstname=email
 			if len(email)>1 and len(firstname)>1:
-				print ('sup')
 				print (appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role))
 				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name=firstname,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password)
 				if registeruser:
-					print('a')
 					send_subscription_email(registeruser,password)
 					#Should we try to catch email ?
-					return("Thanks for subscribing, %s! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in."%(firstname,email,password))
+					return("Thanks for subscribing! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in."%(email,password))
 				else:
-					print('b')
 					return ("Sorry, we cannot register you at the moment. Please try again later.")
-				#if registeruser:
-				#	if send_subscription_email(registeruser,password):
-				#		print("X")
-				#	else:
-				#		print ("Y")
-				#		appbuilder.sm.del_register_user(registeruser)
-				#		return 'Not possible to register(via chat) you at the moment, try again later'
-				
-			#else:
-			#	return 'Cannot save to Database. Username or Email might have been already taken'
 		return (response['result']['fulfillment']['speech'])
 	else:
 		return ("Sorry, I couldn't understand that question")
