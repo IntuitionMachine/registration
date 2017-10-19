@@ -121,7 +121,7 @@ def send_subscription_email(registeruser,random_generated_password):
 	#							   first_name=registeruser.first_name,
 	#							   password=random_generated_password,
 	#							   hash=registeruser.registration_hash,url=url,last_name=registeruser.last_name)
-	msg = render_template('appbuilder/custom_register.html',username=registeruser.mail,
+	msg = render_template('appbuilder/custom_register.html',username=registeruser.email,
 								first_name=registeruser.first_name,
 								password=random_generated_password,
 								url=url,
@@ -297,6 +297,7 @@ def get_chatbot_response(query):
 			print("type")
 			print (type(contexts))
 			email=''
+			firstname=''
 			for context in contexts:
 				print (context)
 				email=context['parameters']['email']
