@@ -313,7 +313,7 @@ def get_chatbot_response(query):
 				firstname=email
 			if len(email)>1 and len(firstname)>1:
 				print ('sup')
-				print (appbuilder.sm.find_role(appbuilder.sm.))
+				print (appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role))
 				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name=firstname,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password)
 				if registeruser:
 					print('a')
