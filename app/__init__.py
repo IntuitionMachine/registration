@@ -63,6 +63,9 @@ from flask_appbuilder.security.sqla.models import User,RegisterUser
 #Using Sendgrid  to send emails in heroku app instead of smtp.gmail
 from sendgrid  import *
 from sendgrid.helpers.mail import *
+
+#
+from werkzeug.security import generate_password_hash
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
 def generate_random_password():
@@ -111,12 +114,18 @@ def send_subscription_email(registeruser,random_generated_password):
 	#base_url='https://intuitionmachine.ml'
 	base_url='https://chat-intuitionfabric.herokuapp.com'
 	print(base_url)
-	url=base_url+'/register/activation/'+registeruser.registration_hash
-	content=Content("text/plain","hello world")
-	msg = render_template('appbuilder/custom_register.html',username=registeruser.email,
-								   first_name=registeruser.first_name,
-								   password=random_generated_password,
-								   hash=registeruser.registration_hash,url=url,last_name=registeruser.last_name)
+	#url=base_url+'/register/activation/'+registeruser.registration_hash
+	url=base_url+"/login"
+	#content=Content("text/plain","hello world")
+	#msg = render_template('appbuilder/custom_register.html',username=registeruser.email,
+	#							   first_name=registeruser.first_name,
+	#							   password=random_generated_password,
+	#							   hash=registeruser.registration_hash,url=url,last_name=registeruser.last_name)
+	msg = render_template('appbuilder/custom_register.html',username=registeruser.mail,
+								first_name=registeruser.first_name,
+								password=random_generated_password,
+								url=url,
+								last_name=registeruser.last_name)
 	fromEmail=os.environ.get('MAIL_USERNAME')
 	from_email = Email("eduardofranivaldez@gmail.com")
 	subject = "Intuition Fabric Account Activation"
@@ -228,26 +237,37 @@ def chatbot_response(userQuery):
 	responseStatus = response['status']['code']
 	if (responseStatus == 200):
 		print(type(response['result']['fulfillment']['speech']))
-		if 'subscribing' in response['result']['fulfillment']['speech']:
+		if 'subscribing' in response['result']['fulfillment']['speech']: #If end of conversation
 			contexts=response['result']['contexts']
-			print("type")
+			print ('contexts')
 			print (type(contexts))
 			email=''
+			firstname=''
 			for context in contexts:
 				print (context)
 				email=context['parameters']['email']
 				firstname=context['parameters']['given-name']
-				password=generate_random_password()
-				print(password)
-				if len(email)>1:
-					registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
-					if registeruser:
-						if send_subscription_email(registeruser,password):
-							print("X")
-						else:
-							print ("Y")
-							appbuilder.sm.del_register_user(registeruser)
-							return 'Not possible to register(via chat) you at the moment, try again later'
+			password=generate_random_password()
+			print('password')
+			print(password)
+			if len(email)>1 and len(firstname)<1:
+				firstname=email
+			if len(email)>1 and len(firstname)>1:
+				#registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
+				registeruser=appbuilder.sm.add_user(username=email,first_name=firstname,last_name=first_name,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password)
+				if registeruser:
+					send_subscription_email(registeruser,password)
+					#should we handle if we could not send email at the moment?
+					return ("Thanks for subscribing %s! Your username is %s and temporary password is %s. Feel free to change your password in the settings menu. "%(firstname,email,password))
+				else:
+					return ("Sorry,cannot register you at the moment. Please try again later. Thanks")
+				#if registeruser:
+				#	if send_subscription_email(registeruser,password):
+				#		print("X")
+				#	else:
+				#		print ("Y")
+				#		appbuilder.sm.del_register_user(registeruser)
+				#		return 'Not possible to register(via chat) you at the moment, try again later'
 				#else:
 				#	   return 'Cannot save to Database. Username or Email might have been already taken'
 		return (response['result']['fulfillment']['speech'])
@@ -284,15 +304,26 @@ def get_chatbot_response(query):
 			password=generate_random_password()
 			print ('password')
 			print(password)
-			if len(email)>1:
-				registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
+			if len(email)>1 and len(firstname)<1:
+				#registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
+				firstname=email
+			if len(email)>1 and len(firstname)>1:
+				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name=firstname,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password)
 				if registeruser:
-					if send_subscription_email(registeruser,password):
-						print("X")
-					else:
-						print ("Y")
-						appbuilder.sm.del_register_user(registeruser)
-						return 'Not possible to register(via chat) you at the moment, try again later'
+					send_subscription_email(registeruser,password)
+					#Should we try to catch email ?
+					return("Thanks for subscribing, %s! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in."%(firstname,email,password))
+				else:
+					return ("Sorry, we cannot register you at the moment. Please try again later.")
+				#if registeruser:
+				#	if send_subscription_email(registeruser,password):
+				#		print("X")
+				#	else:
+				#		print ("Y")
+				#		appbuilder.sm.del_register_user(registeruser)
+				#		return 'Not possible to register(via chat) you at the moment, try again later'
+				else:
+					send_subscription_email(,password)
 			#else:
 			#	return 'Cannot save to Database. Username or Email might have been already taken'
 		return (response['result']['fulfillment']['speech'])
