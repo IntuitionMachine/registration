@@ -256,7 +256,9 @@ def chatbot_response(userQuery):
 			print(email)
 			print('name')
 			print(name)
-			if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser.filter_by(email=email).first() :
+			check1=db.session.query(MyUser).filter_by(username=email).first()
+			check2=db.session.query(MyUser).filter_by(email=email).first()
+			if check1 or check2:
 				return ("Sorry, there is already an account associated with %s. Please use another email address."%email)
 			#else
 			if len(email)>1 and len(firstname)<1:
@@ -313,7 +315,7 @@ def get_chatbot_response(query):
 			print(email)
 			print ('name')
 			print (firstname)
-			if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser.filter_by(email=email).first() :
+			if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser).filter_by(email=email).first() :
 				return ("Sorry mate. There is already an account associated with %s. Try using another email."%email)
 			if len(email)>1 and len(firstname)<1:
 				print("given name failed.")
