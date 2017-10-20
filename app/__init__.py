@@ -230,25 +230,23 @@ def send_message(sender_id, message_text):
 def chatbot_response(userQuery):
 	request = ai.text_request()
 	request.lang = 'de'  # optional, default value equal 'en'
-		#request.session_id = "" #add unique session ID for each user
+	#request.session_id = "" #add unique session ID for each user
 	request.query = userQuery
 	response = json.loads(request.getresponse().read().decode('utf-8'))
 	responseStatus = response['status']['code']
 	if (responseStatus == 200):
 		print(type(response['result']['fulfillment']['speech']))
-		if 'subscribing' in response['result']['fulfillment']['speech']: #If end of conversation
+		if 'Great!  Thanks!' in response['result']['fulfillment']['speech']: #If end of conversation
 			contexts=response['result']['contexts']
 			print ('contexts')
 			print (type(contexts))
 			email=''
 			firstname=''
 			for context in contexts:
-				print (context)
-				email=context['parameters']['email']
-				try:
+				if(context['name']=='ask-email'):
+					print (context)
+					email=context['parameters']['email']
 					firstname=context['parameters']['given-name']
-				except:
-					print ("given name failed again.")
 			password=generate_random_password()
 			print('password')
 			print(password)
