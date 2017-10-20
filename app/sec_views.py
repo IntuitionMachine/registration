@@ -73,7 +73,7 @@ class MyRegisterUserDBView(BaseRegisterUser):
 											  email=form.email.data,
 											  password=form.password.data                                     
 											   ) 
-		#print (request.remote_addr)
+		print (request.remote_addr)
 
 		#Can't Edit add_registration method yet
 		# self.add_registration(username=form.username.data,

@@ -50,16 +50,16 @@ class MyUser(User):
 		geoIP=Column(String(255))				
 		geoLoc=Column(String(255))
 
-class MyRegisterUser(RegisterUser): 
+#class MyRegisterUser(RegisterUser): 
 #Extend Register User of F.A.B
-	birthday=Column(String(50))
-	user_email=Column(String(255),unique=True)
-	streetAddress=Column(String(255))
-	country=Column(String(255))
-	city=Column(String(255))
-	state=Column(String(255))
-	zipCode=Column(String(255))
-	ethAddress=Column(String(255))
-	govID=Column(String(255))
-	geoIP=Column(String(255))
-	geoLoc=Column(String(255))
+#	birthday=Column(String(50))
+#	user_email=Column(String(255),unique=True)
+#	streetAddress=Column(String(255))
+#	country=Column(String(255))
+#	city=Column(String(255))
+#	state=Column(String(255))
+#	zipCode=Column(String(255))
+#	ethAddress=Column(String(255))
+#	govID=Column(String(255))
+#	geoIP=Column(String(255))
+#	geoLoc=Column(String(255))
