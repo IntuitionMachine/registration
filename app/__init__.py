@@ -246,7 +246,7 @@ def chatbot_response(userQuery):
 				if(context['name']=='ask-email'):
 					print (context)
 					email=context['parameters']['email']
-					firstname=context['parameters']['given-name']
+					firstname=context['parameters']['given-name.original']
 			password=generate_random_password()
 			print('password')
 			print(password)
@@ -293,19 +293,17 @@ def get_chatbot_response(query):
 	responseStatus = response['status']['code']
 	if (responseStatus == 200):
 		print(type(response['result']['fulfillment']['speech']))
-		if 'subscribing' in response['result']['fulfillment']['speech']:
+		if 'Great!  Thanks!' in response['result']['fulfillment']['speech']:
 			contexts=response['result']['contexts']
 			print("type")
 			print (type(contexts))
 			email=''
 			firstname=''
 			for context in contexts:
-				print (context)
-				email=context['parameters']['email']
-				try:
-					firstname=context['parameters']['given-name']
-				except:
-					print("given name failed again.")
+				if(context['name']=='ask-email'):
+					print (context)
+					email=context['parameters']['email']
+					firstname=context['parameters']['given-name.original']
 			password=generate_random_password()
 			print ('password')
 			print(password)
@@ -331,7 +329,6 @@ def get_chatbot_response(query):
 		return (response['result']['fulfillment']['speech'])
 	else:
 		return ("Sorry, I couldn't understand that question")
-
 
 """
 from sqlalchemy.engine import Engine

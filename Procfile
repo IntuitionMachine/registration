@@ -1,1 +1,1 @@
-web: gunicorn run:app --reload
+web: gunicorn run:app
