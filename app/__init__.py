@@ -236,7 +236,7 @@ def chatbot_response(userQuery):
 	responseStatus = response['status']['code']
 	if (responseStatus == 200):
 		print(type(response['result']['fulfillment']['speech']))
-		if 'Great!  Thanks!' in response['result']['fulfillment']['speech']: #If end of conversation
+		if 'Great!' in response['result']['fulfillment']['speech']: #If end of conversation
 			contexts=response['result']['contexts']
 			print ('contexts')
 			print (type(contexts))
@@ -293,7 +293,7 @@ def get_chatbot_response(query):
 	responseStatus = response['status']['code']
 	if (responseStatus == 200):
 		print(type(response['result']['fulfillment']['speech']))
-		if 'Great!  Thanks!' in response['result']['fulfillment']['speech']:
+		if 'Great!' in response['result']['fulfillment']['speech']:
 			contexts=response['result']['contexts']
 			print("type")
 			print (type(contexts))
