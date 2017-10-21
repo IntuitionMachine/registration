@@ -45,13 +45,13 @@
 .chat .chat-message
 {
 	width:70%;
-  float: left;
+ 	float: left;
 	padding: 5px;
 	margin: 5px 5px 0px;
 	border-radius: 20px;
 	font-size: 14px;
 	margin-bottom: 10px;
-
+	word-wrap: break-word;
 }
 
 .chat .user-photo{

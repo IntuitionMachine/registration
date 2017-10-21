@@ -165,7 +165,7 @@ def update_user(id,oldCountry,countryData,ipaddr):
 	if oldCountry==countryData:
 		print("same ",tempUser.country,countryData)
 		return str(id) #exit
-	else:   
+	else:
 		if oldCountry=='None': #Don't add to DB or subtract
 			pass
 		else:
@@ -230,7 +230,6 @@ def send_message(sender_id, message_text):
 def chatbot_response(userQuery):
 	request = ai.text_request()
 	request.lang = 'de'  # optional, default value equal 'en'
-	#request.session_id = "" #add unique session ID for each user
 	request.query = userQuery
 	response = json.loads(request.getresponse().read().decode('utf-8'))
 	responseStatus = response['status']['code']
@@ -246,7 +245,7 @@ def chatbot_response(userQuery):
 				if(context['name']=='ask-email'):
 					print (context)
 					email=context['parameters']['email']
-					firstname=context['parameters']['given-name.original']
+					#firstname=context['parameters']['given-name.original']
 			password=generate_random_password()
 			print('password')
 			print(password)
@@ -272,7 +271,7 @@ def chatbot_response(userQuery):
 					return ("Sorry,cannot register you at the moment. Please try again later. Thanks")
 
 		return (response['result']['fulfillment']['speech'])
-	else:
+	else:	#problem with service
 		return ("Sorry, I couldn't understand that question")
 
 
@@ -287,7 +286,6 @@ def send_message_response(sender_id,message_text):
 def get_chatbot_response(query):
 	request = ai.text_request()
 	request.lang = 'de'  # optional, default value equal 'en'
-	#request.session_id = "" #add unique session ID for each user
 	request.query = query
 	response = json.loads(request.getresponse().read().decode('utf-8'))
 	responseStatus = response['status']['code']
@@ -303,7 +301,7 @@ def get_chatbot_response(query):
 				if(context['name']=='ask-email'):
 					print (context)
 					email=context['parameters']['email']
-					firstname=context['parameters']['given-name.original']
+					#firstname=context['parameters']['given-name.original']
 			password=generate_random_password()
 			print ('password')
 			print(password)
@@ -327,7 +325,7 @@ def get_chatbot_response(query):
 				else:
 					return ("Sorry, we cannot register you at the moment. Please try again later.")
 		return (response['result']['fulfillment']['speech'])
-	else:
+	else:	#problem with service
 		return ("Sorry, I couldn't understand that question")
 
 """
