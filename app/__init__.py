@@ -86,8 +86,6 @@ from rasa_nlu.model import Metadata, Interpreter
 
 #config= RasaNLUConfig("/var/www/new/registration/sample_configs/config_spacy.json")
 #interpreter = Interpreter.load(model_directory,config,builder)
-
-
 #print('rasa')
 #print (interpreter_clone)
 #print (interpreter.parse(u"Hi my name is Paolo"))
@@ -141,7 +139,7 @@ def activation(activation_hash):
 def send_subscription_email(registeruser,random_generated_password):
 	email_template='custom_register.html' # default register mail from flask_appbuilder
 	#Using sendgrid instead of Flask_Mail for heroku
-		#base_url='http://localhost:8080' #change localhost if deployed
+	#base_url='http://localhost:8080' #change localhost if deployed
 	#base_url = 'https://ifabsampleapp.herokuapp.com'
 	#base_url='https://intuitionmachine.ml'
 	base_url='https://chat-intuitionfabric.herokuapp.com'
@@ -265,12 +263,13 @@ def chatbot_response(userQuery):
 	request.lang = 'de'  # optional, default value equal 'en'
 	request.query = userQuery
 	response = json.loads(request.getresponse().read().decode('utf-8'))
+	print('r')
+	print(response)
 	responseStatus = response['status']['code']
 	if (responseStatus == 200):
-		print(type(response['result']['fulfillment']['speech']))
-		if 'Great!' in response['result']['fulfillment']['speech']: #If end of conversation
+		if 'Great!' in response['result']['fulfillment']['speech']:
 			contexts=response['result']['contexts']
-			print ('contexts')
+			print("type")
 			print (type(contexts))
 			email=''
 			firstname=''
@@ -280,33 +279,30 @@ def chatbot_response(userQuery):
 					email=context['parameters']['email']
 					#firstname=context['parameters']['given-name.original']
 			password=generate_random_password()
-			print('password')
+			print ('password')
 			print(password)
-			print('email')
+			print ('email')
 			print(email)
-			print('name')
-			print(name)
-			check1=db.session.query(MyUser).filter_by(username=email).first()
-			check2=db.session.query(MyUser).filter_by(email=email).first()
-			if check1 or check2:
-				return ("Sorry, there is already an account associated with %s. Please use another email address."%email)
-			#else
+			print ('name')
+			print (firstname)
+			if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser).filter_by(email=email).first() :
+				return ("Sorry mate. There is already an account associated with %s. Try using another email."%email)
 			if len(email)>1 and len(firstname)<1:
+				print("given name failed.")
+				#registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
 				firstname=email
 			if len(email)>1 and len(firstname)>1:
-				#registeruser = appbuilder.sm.add_register_user(email,firstname,firstname,email,password)
-				registeruser=appbuilder.sm.add_user(username=email,first_name=firstname,last_name=first_name,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password)
+				print (appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role))
+				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name=firstname,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password )
 				if registeruser:
 					send_subscription_email(registeruser,password)
-					#should we handle if we could not send email at the moment?
-					return ("Thanks for subscribing %s! Your username is %s and temporary password is %s. Feel free to change your password in the settings menu. "%(firstname,email,password))
+					#Should we try to catch email ?
+					return("Thanks for subscribing! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in."%(email,password))
 				else:
-					return ("Sorry,cannot register you at the moment. Please try again later. Thanks")
-
+					return ("Sorry, we cannot register you at the moment. Please try again later.")
 		return (response['result']['fulfillment']['speech'])
-	else:	#problem with service
+	else:   #problem with service
 		return ("Sorry, I couldn't understand that question")
-
 
 def send_message_response(sender_id,message_text):
 	sentenceDelimeter="."
