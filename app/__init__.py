@@ -84,7 +84,6 @@ sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
 #interpreter = Interpreter.load(model_directory,config,builder)
 #interpreter_clone = Interpreter.load(model_directory, config,builder)
-
 #print('rasa')
 #print (interpreter_clone)
 #print (interpreter.parse(u"Hi my name is Paolo"))
@@ -258,9 +257,7 @@ def chatbot_response(userQuery):
 	response = json.loads(request.getresponse().read().decode('utf-8'))
 	responseStatus = response['status']['code']
 	if (responseStatus == 200):
-		print(type(response['result']['fulfillment']['speech']))
 		if 'Great!' in response['result']['fulfillment']['speech']:
-			print( response['result']['fulfillment']['speech'] )
 			contexts=response['result']['contexts']
 			print("type")
 			print (type(contexts))
@@ -296,8 +293,6 @@ def chatbot_response(userQuery):
 		return (response['result']['fulfillment']['speech'])
 	else:   #problem with service
 		return ("Sorry, I couldn't understand that question")
-
-
 
 def send_message_response(sender_id,message_text):
 	sentenceDelimeter="."
