@@ -67,6 +67,25 @@ from sendgrid.helpers.mail import *
 from werkzeug.security import generate_password_hash
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
+
+#RASA NLU
+from rasa_nlu.converters import load_data
+from rasa_nlu.config import RasaNLUConfig
+from rasa_nlu.model import Trainer
+from rasa_nlu.model import Metadata, Interpreter
+config = RasaNLUConfig("sample_configs/config_spacy.json")
+
+training_data = load_data ('data/examples/rasa/demo-rasa.json')
+trainer = Trainer(RasaNLUConfig("sample_configs/config_spacy.json"))
+trainer.train(training_data)
+model_directory = trainer.persist('./projects/default/') #returns the directory the model is stored in
+
+interpreter = interpreter.load(model_directory,config,builder)
+interpreter_clone = Interpreter.load(model_directory, config,builder)
+
+
+
+
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
 	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
