@@ -70,9 +70,9 @@ sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
 #RASA NLU
 #from rasa_nlu.converters import load_data
-#from rasa_nlu.config import RasaNLUConfig
+from rasa_nlu.config import RasaNLUConfig
 #from rasa_nlu.model import Trainer
-#from rasa_nlu.model import Metadata, Interpreter
+from rasa_nlu.model import Metadata, Interpreter
 #from rasa_nlu.components import ComponentBuilder
 #builder = ComponentBuilder(use_cache=True)
 #config = RasaNLUConfig("sample_configs/config_spacy.json")
@@ -82,18 +82,27 @@ sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 #model_directory = trainer.persist('./projects/default/') #returns the directory the model is stored in
 #print(model_directory)
 
+#from .train import *
+
+#config= RasaNLUConfig("/var/www/new/registration/sample_configs/config_spacy.json")
 #interpreter = Interpreter.load(model_directory,config,builder)
-#interpreter_clone = Interpreter.load(model_directory, config,builder)
+
 
 #print('rasa')
 #print (interpreter_clone)
 #print (interpreter.parse(u"Hi my name is Paolo"))
 
+
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
 	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
-@app.route('/querybot',methods = ['GET'])
+@app.route('/queryrasabot',methods = ['GET'])
 def query():
+	#from .train import *
+	try:
+            from .train import interpreter
+	except :
+		print ('train.py error')
 	dict = interpreter.parse(u"my name is carlos")
 	return dict
 @expose('/activation/<string:activation_hash>')
