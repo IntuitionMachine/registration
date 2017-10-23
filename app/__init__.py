@@ -83,7 +83,8 @@ model_directory = trainer.persist('./projects/default/') #returns the directory 
 interpreter = interpreter.load(model_directory,config,builder)
 interpreter_clone = Interpreter.load(model_directory, config,builder)
 
-
+print('rasa')
+print (interpreter_clone)
 
 
 def generate_random_password():
