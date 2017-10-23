@@ -69,27 +69,33 @@ sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
 
 #RASA NLU
-from rasa_nlu.converters import load_data
-from rasa_nlu.config import RasaNLUConfig
-from rasa_nlu.model import Trainer
-from rasa_nlu.model import Metadata, Interpreter
-config = RasaNLUConfig("sample_configs/config_spacy.json")
+#from rasa_nlu.converters import load_data
+#from rasa_nlu.config import RasaNLUConfig
+#from rasa_nlu.model import Trainer
+#from rasa_nlu.model import Metadata, Interpreter
+#from rasa_nlu.components import ComponentBuilder
+#builder = ComponentBuilder(use_cache=True)
+#config = RasaNLUConfig("sample_configs/config_spacy.json")
+#training_data = load_data ('data/examples/rasa/demo-rasa.json')
+#trainer = Trainer(RasaNLUConfig("sample_configs/config_spacy.json"))
+#trainer.train(training_data)
+#model_directory = trainer.persist('./projects/default/') #returns the directory the model is stored in
+#print(model_directory)
 
-training_data = load_data ('data/examples/rasa/demo-rasa.json')
-trainer = Trainer(RasaNLUConfig("sample_configs/config_spacy.json"))
-trainer.train(training_data)
-model_directory = trainer.persist('./projects/default/') #returns the directory the model is stored in
+#interpreter = Interpreter.load(model_directory,config,builder)
+#interpreter_clone = Interpreter.load(model_directory, config,builder)
 
-interpreter = interpreter.load(model_directory,config,builder)
-interpreter_clone = Interpreter.load(model_directory, config,builder)
-
-print('rasa')
-print (interpreter_clone)
-
+#print('rasa')
+#print (interpreter_clone)
+#print (interpreter.parse(u"Hi my name is Paolo"))
 
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
 	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
+@app.route('/querybot',methods = ['GET'])
+def query():
+	dict = interpreter.parse(u"my name is carlos")
+	return dict
 @expose('/activation/<string:activation_hash>')
 def activation(activation_hash):
 		"""
@@ -102,7 +108,6 @@ def activation(activation_hash):
 		false_error_message = lazy_gettext('Registration not found')
 		reg = appbuilder.sm.find_register_user(activation_hash)
 		if not reg:
-			print('1')
 			log.error(c.LOGMSG_ERR_SEC_NO_REGISTER_HASH.format(activation_hash))
 			flash(as_unicode(false_error_message), 'danger')
 			print(appbuilder.get_url_for_index)
@@ -118,7 +123,6 @@ def activation(activation_hash):
 			print(appbuilder.get_url_for_index)
 			return redirect(appbuilder.get_url_for_index)
 		else:
-			print('2')
 			appbuilder.sm.del_register_user(reg)
 			return render_template(activation_template,
 							   username=reg.username,
@@ -145,7 +149,7 @@ def send_subscription_email(registeruser,random_generated_password):
 								password=random_generated_password,
 								url=url,
 								last_name=registeruser.last_name)
-	fromEmail=os.environ.get('MAIL_USERNAME')
+	#fromEmail=os.environ.get('MAIL_USERNAME')
 	from_email = Email("eduardofranivaldez@gmail.com")
 	subject = "Intuition Fabric Account Activation"
 	toEmail=   registeruser.email
