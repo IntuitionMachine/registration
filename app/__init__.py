@@ -131,7 +131,7 @@ def activation(activation_hash):
 def send_subscription_email(registeruser,random_generated_password):
 	email_template='custom_register.html' # default register mail from flask_appbuilder
 	#Using sendgrid instead of Flask_Mail for heroku
-		#base_url='http://localhost:8080' #change localhost if deployed
+	#base_url='http://localhost:8080' #change localhost if deployed
 	#base_url = 'https://ifabsampleapp.herokuapp.com'
 	#base_url='https://intuitionmachine.ml'
 	base_url='https://chat-intuitionfabric.herokuapp.com'
@@ -253,8 +253,10 @@ def send_message(sender_id, message_text):
 def chatbot_response(userQuery):
 	request = ai.text_request()
 	request.lang = 'de'  # optional, default value equal 'en'
-	request.query = query
+	request.query = userQuery
 	response = json.loads(request.getresponse().read().decode('utf-8'))
+	print('r')
+	print(response)
 	responseStatus = response['status']['code']
 	if (responseStatus == 200):
 		if 'Great!' in response['result']['fulfillment']['speech']:
@@ -283,7 +285,7 @@ def chatbot_response(userQuery):
 				firstname=email
 			if len(email)>1 and len(firstname)>1:
 				print (appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role))
-				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name=firstname,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password)
+				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name=firstname,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password )
 				if registeruser:
 					send_subscription_email(registeruser,password)
 					#Should we try to catch email ?
