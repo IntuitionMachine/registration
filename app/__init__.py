@@ -82,7 +82,7 @@ from rasa_nlu.model import Metadata, Interpreter
 #model_directory = trainer.persist('./projects/default/') #returns the directory the model is stored in
 #print(model_directory)
 
-#from .train import *
+from .train import *
 
 #config= RasaNLUConfig("/var/www/new/registration/sample_configs/config_spacy.json")
 #interpreter = Interpreter.load(model_directory,config,builder)
@@ -97,10 +97,10 @@ def generate_random_password():
 @app.route('/queryrasabot',methods = ['GET'])
 def query():
 	#from .train import *
-	try:
-            from .train import interpreter
-	except :
-		print ('train.py error')
+	#try:
+        #    from .train import interpreter
+	#except :
+	#	print ('train.py error')
 	dict = interpreter.parse(u"my name is carlos")
 	return dict
 @expose('/activation/<string:activation_hash>')
