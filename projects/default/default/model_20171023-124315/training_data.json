@@ -1,0 +1,332 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "hey"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "howdy"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "hey there"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "hello"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "hi"
+      },
+      {
+        "entities": [],
+        "intent": "restaurant_search",
+        "text": "i'm looking for a place to eat"
+      },
+      {
+        "entities": [
+          {
+            "end": 36,
+            "start": 31,
+            "entity": "location",
+            "value": "north"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "i'm looking for a place in the north of town"
+      },
+      {
+        "entities": [
+          {
+            "end": 15,
+            "start": 8,
+            "entity": "cuisine",
+            "value": "chinese"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "show me chinese restaurants"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "yes"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "yep"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "yeah"
+      },
+      {
+        "entities": [
+          {
+            "end": 37,
+            "start": 31,
+            "entity": "location",
+            "value": "centre"
+          },
+          {
+            "end": 17,
+            "start": 10,
+            "entity": "cuisine",
+            "value": "mexican"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "show me a mexican place in the centre"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "bye"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "goodbye"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "good bye"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "stop"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "end"
+      },
+      {
+        "entities": [
+          {
+            "end": 26,
+            "start": 20,
+            "entity": "cuisine",
+            "value": "indian"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "i am looking for an indian spot"
+      },
+      {
+        "entities": [],
+        "intent": "restaurant_search",
+        "text": "search for restaurants"
+      },
+      {
+        "entities": [
+          {
+            "end": 20,
+            "start": 16,
+            "entity": "location",
+            "value": "west"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "anywhere in the west"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "start": 0,
+            "entity": "location",
+            "value": "central"
+          },
+          {
+            "end": 14,
+            "start": 8,
+            "entity": "cuisine",
+            "value": "indian"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "central indian restaurant"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "indeed"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "that's right"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "ok"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "great"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "hello there,friend!"
+      },
+      {
+        "entities": [
+          {
+            "end": 18,
+            "start": 11,
+            "entity": "first_name",
+            "value": "eduardo"
+          }
+        ],
+        "intent": "get_name",
+        "text": "My name is eduardo"
+      },
+      {
+        "entities": [
+          {
+            "end": 16,
+            "start": 12,
+            "entity": "first_name",
+            "value": "Keon"
+          }
+        ],
+        "intent": "get_name",
+        "text": "the name is Keon"
+      },
+      {
+        "entities": [
+          {
+            "end": 3,
+            "start": 0,
+            "entity": "first_name",
+            "value": "Ada"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Ada"
+      },
+      {
+        "entities": [
+          {
+            "end": 5,
+            "start": 0,
+            "entity": "first_name",
+            "value": "Colby"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Colby"
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "start": 0,
+            "entity": "first_name",
+            "value": "Tyrone"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Tyrone"
+      },
+      {
+        "entities": [
+          {
+            "end": 5,
+            "start": 0,
+            "entity": "first_name",
+            "value": "Harry"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Harry"
+      },
+      {
+        "entities": [
+          {
+            "end": 5,
+            "start": 0,
+            "entity": "first_name",
+            "value": "Kylie"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Kylie is my name"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "start": 0,
+            "entity": "first_name",
+            "value": "Allyson"
+          }
+        ],
+        "text": "Allyson is my nameee"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "start": 0,
+            "entity": "first_name",
+            "value": "Marissa"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Marissa"
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "start": 0,
+            "entity": "first_name",
+            "value": "Freddy"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Freddy"
+      }
+    ],
+    "entity_synonyms": [
+      {
+        "value": "chinese",
+        "synonyms": [
+          "Chines",
+          "chines",
+          "Chinese"
+        ]
+      },
+      {
+        "value": "vegetarian",
+        "synonyms": [
+          "vegg",
+          "veggie"
+        ]
+      }
+    ],
+    "regex_features": [
+      {
+        "name": "zipcode",
+        "pattern": "[0-9]{5}"
+      }
+    ]
+  }
+}

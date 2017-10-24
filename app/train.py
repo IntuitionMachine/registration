@@ -18,6 +18,6 @@ print(model_directory)
 config= RasaNLUConfig("/var/www/new/registration/sample_configs/config_spacy.json")
 interpreter = Interpreter.load(model_directory,config,builder)
 
-
+print (interpreter.parse(u'carlos'))
 
 

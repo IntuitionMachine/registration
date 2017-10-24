@@ -90,19 +90,46 @@ from .train import *
 #print (interpreter_clone)
 #print (interpreter.parse(u"Hi my name is Paolo"))
 
+import random
+
+ask_name = [ "Hello there! What is your name? ", "Hey there, what is your name?", "What is your name?", "Name please? "]
 
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
 	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
-@app.route('/queryrasabot',methods = ['GET'])
-def query():
-	#from .train import *
-	#try:
-        #    from .train import interpreter
-	#except :
-	#	print ('train.py error')
-	dict = interpreter.parse(u"my name is carlos")
-	return dict
+@app.route('/queryrasabot/<query>',methods = ['GET'])
+def rasanluquery(query):
+	response = interpreter.parse(query)
+	firstname=''
+	email=''
+	print(response)
+	if response['intent']['name']=='greet':
+		return  random.choice(ask_name)
+	elif (response['intent']['name']=='get_name'):
+		if response['entities'][0]:
+			print(response['entities'][0])
+			if response['entities'][0]['entity']=='first_name':
+				firstname=response['entities'][0]['value']
+				return "hello there %s ! what is your email address?"%firstname
+
+	elif response['intent']['name']=='get_email':
+		if response['entities']:
+			if response['entities'][0]['entity']=='email':
+				email = response['entities'][0]['value']
+				password = generate_random_password()
+				if len(firstname)<1:
+					firstname=email
+				if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser).filter_by(email=email).first() :
+					return ("Sorry mate. There is already an account associated with %s. Try using another email."%email)
+				print (appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role))
+				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name=firstname,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password )
+				if registeruser:
+					send_subscription_email(registeruser,password)
+					#Should we try to catch email ?
+					return("Thanks for subscribing! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in. We will email you this registration details as well."%(email,password))
+				else:
+					return ("Sorry, we cannot register you at the moment. Please try again later.")
+	return "Can you repeat that again?"
 @expose('/activation/<string:activation_hash>')
 def activation(activation_hash):
 		"""
@@ -210,7 +237,7 @@ def update_user(id,oldCountry,countryData,ipaddr):
 	else:
 		print("new")
 		newCountry=CountryStat(country=countryData,count=1)
-		db.session.add(newCountry)  
+		db.session.add(newCountry)
 	db.session.commit()
 	return str(id)
 @app.route("/get/countries")
@@ -367,6 +394,6 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
 	cursor = dbapi_connection.cursor()
 	cursor.execute("PRAGMA foreign_keys=ON")
 	cursor.close()
-"""	
+"""
 from app import models,views
 db.create_all()
