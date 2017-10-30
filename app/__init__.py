@@ -103,17 +103,21 @@ def rasanluquery(query):
 	firstname=''
 	email=''
 	print(response)
+	#return jsonify(response)
 	if response['intent']['name']=='greet':
 		return  random.choice(ask_name)
 	elif (response['intent']['name']=='get_name'):
 		if response['entities'][0]:
-			print(response['entities'][0])
+			print("NAME ENTITIES\n")
+			print(response['entities'][0]['entity'])
 			if response['entities'][0]['entity']=='first_name':
 				firstname=response['entities'][0]['value']
 				return "hello there %s ! what is your email address?"%firstname
-
+			#return response['entities'][0]
 	elif response['intent']['name']=='get_email':
-		if response['entities']:
+		if response['entities'][0]:
+			print("EMAIL ENTITY")
+			print(response['entities'][0]['entity'])
 			if response['entities'][0]['entity']=='email':
 				email = response['entities'][0]['value']
 				password = generate_random_password()

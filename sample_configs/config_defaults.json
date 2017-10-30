@@ -24,9 +24,9 @@
   "ner_crf": {
     "BILOU_flag": true,
     "features": [
-      ["low", "title", "upper", "pos", "pos2"],
-      ["bias", "low", "word3", "word2", "upper", "title", "digit", "pos", "pos2", "pattern"],
-      ["low", "title", "upper", "pos", "pos2"]],
+      ["low", "upper", "pos", "pos2"],
+      ["bias", "low", "word3", "word2", "upper", "digit", "pos", "pos2", "pattern"],
+      ["low", "upper", "pos", "pos2"]],
     "max_iterations": 50,
     "L1_c": 1,
     "L2_c": 1e-3
