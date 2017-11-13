@@ -69,54 +69,45 @@ sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
 
 #RASA NLU
-#from rasa_nlu.converters import load_data
-from rasa_nlu.config import RasaNLUConfig
-#from rasa_nlu.model import Trainer
-from rasa_nlu.model import Metadata, Interpreter
-#from rasa_nlu.components import ComponentBuilder
-#builder = ComponentBuilder(use_cache=True)
-#config = RasaNLUConfig("sample_configs/config_spacy.json")
-#training_data = load_data ('data/examples/rasa/demo-rasa.json')
-#trainer = Trainer(RasaNLUConfig("sample_configs/config_spacy.json"))
-#trainer.train(training_data)
-#model_directory = trainer.persist('./projects/default/') #returns the directory the model is stored in
-#print(model_directory)
 
+from rasa_nlu.config import RasaNLUConfig
+from rasa_nlu.model import Metadata, Interpreter
 from .train import *
 
-#config= RasaNLUConfig("/var/www/new/registration/sample_configs/config_spacy.json")
-#interpreter = Interpreter.load(model_directory,config,builder)
-#print('rasa')
-#print (interpreter_clone)
-#print (interpreter.parse(u"Hi my name is Paolo"))
-
 import random
-
 ask_name = [ "Hello there! What is your name? ", "Hey there, what is your name?", "What is your name?", "Name please? "]
 
+#global var
+firstname=''
+email=''
+	
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
 	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
 @app.route('/queryrasabot/<query>',methods = ['GET'])
 def rasanluquery(query):
 	response = interpreter.parse(query)
-	firstname=''
-	email=''
+	#firstname=''
+	#email=''
+	global firstname
+	global email
 	print(response)
 	#return jsonify(response)
 	if response['intent']['name']=='greet':
 		return  random.choice(ask_name)
 	elif (response['intent']['name']=='get_name'):
 		if response['entities'][0]:
-			print("NAME ENTITIES\n")
+			print("NAME ENTITIES")
 			print(response['entities'][0]['entity'])
 			if response['entities'][0]['entity']=='first_name':
 				firstname=response['entities'][0]['value']
+				print("fname")
+				print(firstname)
 				return "hello there %s ! what is your email address?"%firstname
-			#return response['entities'][0]
+
 	elif response['intent']['name']=='get_email':
 		if response['entities'][0]:
-			print("EMAIL ENTITY")
+			print ("EMAIL ENTITY")
 			print(response['entities'][0]['entity'])
 			if response['entities'][0]['entity']=='email':
 				email = response['entities'][0]['value']
@@ -124,13 +115,13 @@ def rasanluquery(query):
 				if len(firstname)<1:
 					firstname=email
 				if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser).filter_by(email=email).first() :
-					return ("Sorry mate. There is already an account associated with %s. Try using another email."%email)
+					return ("Sorry mate. There is already an account associated with %s. Try using another email. If you have further inquiries, you may send them to info@intuitionmachine.com."%email)
 				print (appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role))
-				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name=firstname,email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password )
+				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name="",email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password )
 				if registeruser:
 					send_subscription_email(registeruser,password)
 					#Should we try to catch email ?
-					return("Thanks for subscribing! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in. We will email you this registration details as well."%(email,password))
+					return("Thanks for subscribing %s! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in. We will email you this registration details as well."%(firstname,email,password))
 				else:
 					return ("Sorry, we cannot register you at the moment. Please try again later.")
 	return "Can you repeat that again?"
@@ -328,7 +319,7 @@ def chatbot_response(userQuery):
 				if registeruser:
 					send_subscription_email(registeruser,password)
 					#Should we try to catch email ?
-					return("Thanks for subscribing! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in."%(email,password))
+					return("Thanks for subscribing %s! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in."%(firstname,email,password))
 				else:
 					return ("Sorry, we cannot register you at the moment. Please try again later.")
 		return (response['result']['fulfillment']['speech'])

@@ -1,0 +1,977 @@
+{
+  "rasa_nlu_data": {
+    "regex_features": [
+      {
+        "pattern": "[0-9]{5}",
+        "name": "zipcode"
+      },
+      {
+        "pattern": "[a-zA-Z0-9.!#$%&'*+/=?^_'|~-]+@[a-zA-Z0-9]",
+        "name": "email"
+      },
+      {
+        "pattern": "[a-zA-Z]",
+        "name": "first_name"
+      }
+    ],
+    "entity_synonyms": [
+      {
+        "value": "vegetarian",
+        "synonyms": [
+          "veggie",
+          "vegg"
+        ]
+      },
+      {
+        "value": "chinese",
+        "synonyms": [
+          "Chinese",
+          "Chines",
+          "chines"
+        ]
+      }
+    ],
+    "common_examples": [
+      {
+        "entities": [
+          {
+            "end": 21,
+            "value": "richard",
+            "start": 14,
+            "entity": "first_name"
+          },
+          {
+            "end": 21,
+            "value": "richard",
+            "start": 14,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "hi my name is richard"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "howdy"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "hey there"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "hello"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "hi"
+      },
+      {
+        "entities": [],
+        "intent": "restaurant_search",
+        "text": "i'm looking for a place to eat"
+      },
+      {
+        "entities": [
+          {
+            "end": 36,
+            "value": "north",
+            "start": 31,
+            "entity": "location"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "i'm looking for a place in the north of town"
+      },
+      {
+        "entities": [
+          {
+            "end": 15,
+            "value": "chinese",
+            "start": 8,
+            "entity": "cuisine"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "show me chinese restaurants"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "yes"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "yep"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "yeah"
+      },
+      {
+        "entities": [
+          {
+            "end": 37,
+            "value": "centre",
+            "start": 31,
+            "entity": "location"
+          },
+          {
+            "end": 17,
+            "value": "mexican",
+            "start": 10,
+            "entity": "cuisine"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "show me a mexican place in the centre"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "bye"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "goodbye"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "good bye"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "stop"
+      },
+      {
+        "entities": [],
+        "intent": "goodbye",
+        "text": "end"
+      },
+      {
+        "entities": [
+          {
+            "end": 26,
+            "value": "indian",
+            "start": 20,
+            "entity": "cuisine"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "i am looking for an indian spot"
+      },
+      {
+        "entities": [],
+        "intent": "restaurant_search",
+        "text": "search for restaurants"
+      },
+      {
+        "entities": [
+          {
+            "end": 20,
+            "value": "west",
+            "start": 16,
+            "entity": "location"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "anywhere in the west"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "value": "central",
+            "start": 0,
+            "entity": "location"
+          },
+          {
+            "end": 14,
+            "value": "indian",
+            "start": 8,
+            "entity": "cuisine"
+          }
+        ],
+        "intent": "restaurant_search",
+        "text": "central indian restaurant"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "indeed"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "that's right"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "ok"
+      },
+      {
+        "entities": [],
+        "intent": "affirm",
+        "text": "great"
+      },
+      {
+        "entities": [],
+        "intent": "greet",
+        "text": "hello there,friend!"
+      },
+      {
+        "entities": [
+          {
+            "end": 18,
+            "value": "eduardo",
+            "start": 11,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "My name is eduardo"
+      },
+      {
+        "entities": [
+          {
+            "end": 16,
+            "value": "Keon",
+            "start": 12,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "the name is Keon"
+      },
+      {
+        "entities": [
+          {
+            "end": 3,
+            "value": "Ada",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Ada"
+      },
+      {
+        "entities": [
+          {
+            "end": 5,
+            "value": "Colby",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Colby"
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "Tyrone",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Tyrone"
+      },
+      {
+        "entities": [
+          {
+            "end": 5,
+            "value": "Harry",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Harry"
+      },
+      {
+        "entities": [
+          {
+            "end": 5,
+            "value": "Kylie",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Kylie is my name"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "value": "Allyson",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Allyson is my nameee"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "value": "Marissa",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Marissa"
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "Freddy",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Freddy"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "value": "leonard",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "leonard is my name."
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "value": "terresa",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "text": "terresa"
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "gerard",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "gerard"
+      },
+      {
+        "entities": [
+          {
+            "end": 5,
+            "value": "jamel",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "jamel"
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "jamel",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "jamel"
+      },
+      {
+        "entities": [
+          {
+            "end": 15,
+            "value": "mthurn@live.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "mthurn@live.com is my email"
+      },
+      {
+        "entities": [
+          {
+            "end": 21,
+            "value": "rgarcia@optonline.net",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "rgarcia@optonline.net is my email"
+      },
+      {
+        "entities": [
+          {
+            "end": 21,
+            "value": "webdragon@comcast.net",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "webdragon@comcast.net"
+      },
+      {
+        "entities": [
+          {
+            "end": 17,
+            "value": "sakusha@yahoo.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "sakusha@yahoo.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 16,
+            "value": "miyop@icloud.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "miyop@icloud.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 19,
+            "value": "fangorn@hotmail.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "fangorn@hotmail.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 15,
+            "value": "mxiao@yahoo.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "mxiao@yahoo.com is my email!"
+      },
+      {
+        "entities": [
+          {
+            "end": 26,
+            "value": "jguyer@aol.com",
+            "start": 12,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "my email is jguyer@aol.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 22,
+            "value": "crandall@sbcglobal.net",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "crandall@sbcglobal.net is my email"
+      },
+      {
+        "entities": [
+          {
+            "end": 17,
+            "value": "euice@outlook.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "euice@outlook.com !"
+      },
+      {
+        "entities": [
+          {
+            "end": 15,
+            "value": "firstpr@att.net",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "firstpr@att.net"
+      },
+      {
+        "entities": [
+          {
+            "end": 13,
+            "value": "drezet@me.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "drezet@me.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 11,
+            "value": "Emely",
+            "start": 6,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "it is Emely."
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "carla!",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "carla!!!"
+      },
+      {
+        "entities": [
+          {
+            "end": 5,
+            "value": "Marti",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Marti is my name!"
+      },
+      {
+        "entities": [
+          {
+            "end": 28,
+            "value": "Yuko",
+            "start": 24,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Hello there, my name is Yuko."
+      },
+      {
+        "entities": [
+          {
+            "end": 26,
+            "value": "Will",
+            "start": 22,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "hey there, my name is Will."
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "Romona",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Romona"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "value": "Kathern",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Kathern"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "value": "Sheilah",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Sheilah"
+      },
+      {
+        "entities": [
+          {
+            "end": 21,
+            "value": "Shelby",
+            "start": 15,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Hi, my name is Shelby."
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "Adelle",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Adelle"
+      },
+      {
+        "entities": [
+          {
+            "end": 8,
+            "value": "Rosaline",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Rosaline"
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "Albert",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Albert"
+      },
+      {
+        "entities": [
+          {
+            "end": 22,
+            "value": "michael_warder@msn.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "michael_warder@msn.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 19,
+            "value": "jgranos@hotmail.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "jgranos@hotmail.com is my email"
+      },
+      {
+        "entities": [
+          {
+            "end": 23,
+            "value": "sparkzilla@cableone.net",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "sparkzilla@cableone.net"
+      },
+      {
+        "entities": [
+          {
+            "end": 17,
+            "value": "lowkell@gmail.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "lowkell@gmail.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 21,
+            "value": "tamtruong99@yahoo.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "tamtruong99@yahoo.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 21,
+            "value": "tamtruong99@yahoo.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "tamtruong99@yahoo.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 21,
+            "value": "cyber_zac52@hotmail.c",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "cyber_zac52@hotmail.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 23,
+            "value": "clarkfa@2mawnr.usmc.mil",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "clarkfa@2mawnr.usmc.mil"
+      },
+      {
+        "entities": [
+          {
+            "end": 23,
+            "value": "tjnichols@fsbdial.co.uk",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "tjnichols@fsbdial.co.uk"
+      },
+      {
+        "entities": [
+          {
+            "end": 29,
+            "value": "dale_turner@scotiacapital.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "dale_turner@scotiacapital.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 18,
+            "value": "DCMillerAF@aol.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "DCMillerAF@aol.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 16,
+            "value": "edfdad@gmail.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "edfdad@gmail.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 28,
+            "value": "ceperez@intuitionmachine.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "ceperez@intuitionmachine.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 33,
+            "value": "albertdevera@intuitionmachine.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "albertdevera@intuitionmachine.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 27,
+            "value": "valdez@intuitionmachine.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "valdez@intuitionmachine.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 18,
+            "value": "queyoung@yahoo.com",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "queyoung@yahoo.com"
+      },
+      {
+        "entities": [
+          {
+            "end": 17,
+            "value": "jhburak@telus.net",
+            "start": 0,
+            "entity": "email"
+          }
+        ],
+        "intent": "get_email",
+        "text": "jhburak@telus.net"
+      },
+      {
+        "entities": [
+          {
+            "end": 5,
+            "value": "shaun",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "shaun"
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "carlos",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "carlos"
+      },
+      {
+        "entities": [
+          {
+            "end": 6,
+            "value": "albert",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "albert"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "value": "eduardo",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "eduardo"
+      },
+      {
+        "entities": [
+          {
+            "end": 7,
+            "value": "jacquie",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "jacquie"
+      },
+      {
+        "entities": [
+          {
+            "end": 10,
+            "value": "Christiana",
+            "start": 0,
+            "entity": "first_name"
+          }
+        ],
+        "intent": "get_name",
+        "text": "Christiana"
+      }
+    ]
+  }
+}

@@ -14,7 +14,7 @@
 	}
 	);
 });
-   
+
 $("#send").click(function(){
    message= $('#message').val();
    var div = document.createElement('div')
@@ -37,4 +37,4 @@ $("#send").click(function(){
 });
 });
 
- //MyFiddle https://jsfiddle.net/sqd2e8y2/13/ for checking and editing
+//MyFiddle https://jsfiddle.net/sqd2e8y2/13/ for checking and editing
