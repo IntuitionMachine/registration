@@ -1,0 +1,52 @@
+{
+    "ner_duckling_persisted": "ner_duckling.json",
+    "pipeline": [
+        "nlp_spacy",
+        "tokenizer_spacy",
+        "intent_entity_featurizer_regex",
+        "intent_featurizer_spacy",
+        "ner_crf",
+        "ner_synonyms",
+        "ner_duckling",
+        "ner_spacy",
+        "intent_classifier_sklearn"
+    ],
+    "intent_classifier_sklearn": "intent_classifier.pkl",
+    "regex_featurizer": "regex_featurizer.json",
+    "trained_at": "20171115-090155",
+    "language": "en",
+    "rasa_nlu_version": "0.10.1",
+    "training_data": "training_data.json",
+    "spacy_model_name": "en",
+    "entity_synonyms": "entity_synonyms.json",
+    "entity_extractor_crf": {
+        "version": 1,
+        "crf_features": [
+            [
+                "low",
+                "upper",
+                "pos",
+                "pos2"
+            ],
+            [
+                "bias",
+                "low",
+                "word3",
+                "word2",
+                "upper",
+                "digit",
+                "pos",
+                "pos2",
+                "pattern"
+            ],
+            [
+                "low",
+                "upper",
+                "pos",
+                "pos2"
+            ]
+        ],
+        "BILOU_flag": true,
+        "model_file": "crf_model.pkl"
+    }
+}

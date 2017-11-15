@@ -1,15 +1,19 @@
 {
   "rasa_nlu_data": {
-
-  "regex_features": [
-            {
-                "name": "zipcode",
-                "pattern": "[0-9]{5}"
-            },{
-                "name": "email",
-                "pattern": "[a-zA-Z0-9.!#$%&'*+/=?^_'|~-]+@[a-zA-Z0-9]"
-            },{"name":"first_name","pattern":"[a-zA-Z]"}]
-    ,
+    "regex_features": [
+      {
+        "name": "zipcode",
+        "pattern": "[0-9]{5}"
+      },
+      {
+        "name": "email",
+        "pattern": "[a-zA-Z0-9.!#$%&'*+/=?^_'|~-]+@[a-zA-Z0-9]"
+      },
+      {
+        "name": "first_name",
+        "pattern": "^([a-zA-Z]+[,.]?[ ]?|[a-zA-Z]+['-]?)+$"
+      }
+    ],
     "entity_synonyms": [
       {
         "value": "chinese",
@@ -965,6 +969,150 @@
             "start": 0,
             "end": 10,
             "value": "Christiana",
+            "entity": "first_name"
+          }
+        ]
+      },
+      {
+        "text": "my name is chris.",
+        "intent": "get_name",
+        "entities": [
+          {
+            "start": 11,
+            "end": 16,
+            "value": "chris",
+            "entity": "first_name"
+          }
+        ]
+      },
+      {
+        "text": "zac is my name.",
+        "intent": "get_name",
+        "entities": [
+          {
+            "start": 0,
+            "end": 3,
+            "value": "zac",
+            "entity": "first_name"
+          }
+        ]
+      },
+      {
+        "text": "Milan is the name!",
+        "intent": "get_name",
+        "entities": [
+          {
+            "start": 0,
+            "end": 5,
+            "value": "Milan",
+            "entity": "first_name"
+          }
+        ]
+      },
+      {
+        "text": "milan@eim.ae is my email",
+        "intent": "get_email",
+        "entities": [
+          {
+            "start": 0,
+            "end": 12,
+            "value": "milan@eim.ae",
+            "entity": "email"
+          }
+        ]
+      },
+      {
+        "text": "erc@pobox.com is the email!",
+        "intent": "get_email",
+        "entities": [
+          {
+            "start": 0,
+            "end": 13,
+            "value": "erc@pobox.com",
+            "entity": "email"
+          }
+        ]
+      },
+      {
+        "text": "Hey there, Sinister13thUrge@aol.com is my email ",
+        "intent": "get_email",
+        "entities": [
+          {
+            "start": 11,
+            "end": 35,
+            "value": "Sinister13thUrge@aol.com",
+            "entity": "email"
+          }
+        ]
+      },
+      {
+        "text": "gary_san@yahoo.com",
+        "intent": "get_email",
+        "entities": [
+          {
+            "start": 0,
+            "end": 18,
+            "value": "gary_san@yahoo.com",
+            "entity": "email"
+          }
+        ]
+      },
+      {
+        "text": "my name is thomas ",
+        "intent": "get_name",
+        "entities": [
+          {
+            "start": 11,
+            "end": 18,
+            "value": "thomas ",
+            "entity": "first_name"
+          }
+        ]
+      },
+      {
+        "text": "edksara@sbcglobal.net",
+        "intent": "get_email",
+        "entities": [
+          {
+            "start": 0,
+            "end": 21,
+            "value": "edksara@sbcglobal.net",
+            "entity": "email"
+          }
+        ]
+      },
+      {
+        "text": "cj is my name",
+        "intent": "get_name",
+        "entities": [
+          {
+            "start": 0,
+            "end": 2,
+            "value": "cj",
+            "entity": "first_name"
+          }
+        ]
+      },
+      {
+        "text": "MJ",
+        "intent": "get_name",
+        "entities": [
+          {
+            "start": 0,
+            "end": 2,
+            "value": "MJ",
+            "entity": "first_name"
+          }
+        ]
+      },
+      {
+        "text": "susan",
+        "intent": "get_name",
+        "entities": [
+          {
+            "start": 0,
+            "end": 5,
+            "value": "susan",
             "entity": "first_name"
           }
         ]

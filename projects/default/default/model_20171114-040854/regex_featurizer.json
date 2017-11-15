@@ -1,0 +1,14 @@
+[
+    {
+        "pattern": "[0-9]{5}",
+        "name": "zipcode"
+    },
+    {
+        "pattern": "[a-zA-Z0-9.!#$%&'*+/=?^_'|~-]+@[a-zA-Z0-9]",
+        "name": "email"
+    },
+    {
+        "pattern": "^([a-z]+[,.]?[ ]?|[a-z]+['-]?)+$",
+        "name": "first_name"
+    }
+]

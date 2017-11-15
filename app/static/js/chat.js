@@ -2,9 +2,9 @@
  $("#chatheader").click(function(){
 	$("#chatContainer").slideToggle();
 	//$.get("http://chat.intuitionfabric/querychatbot/"+"hi",		
-        //$.get("http://128.199.246.202:5000/queryrasabot/"+"hi",
+        $.get("http://128.199.246.202:5000/queryrasabot/"+"hi",
 	//$.get("https://chat-intuitionfabric.herokuapp.com/querychatbot/"+"hi",
-	$.get("https://chat-intuitionfabric.herokuapp.com/queryrasabot/"+"hi",
+	//$.get("https://chat-intuitionfabric.herokuapp.com/queryrasabot/"+"hi",
 	function(data) {
 		var botdiv = document.createElement('div')
 		botdiv.setAttribute('class', 'chat bot');
@@ -22,9 +22,9 @@ $("#send").click(function(){
    div.innerHTML = '<div class='+'user-photo'+'></div>' +'<p class='+ 'chat-message'+'>'+ message+'</p>';
    $("#chatlogs").append(div);
         //$.get("http://chat.intuitionfabric.com/querychatbot/" + message,
-	//$.get("http://128.199.246.202:5000/queryrasabot/"+message,
+	$.get("http://128.199.246.202:5000/queryrasabot/"+message,
 	//$.get("https://chat-intuitionfabric.herokuapp.com/querychatbot/" + message,
-	$.get("https://chat-intuitionfabric.herokuapp.com/queryrasabot"+message,
+	//$.get("https://chat-intuitionfabric.herokuapp.com/queryrasabot"+message,
 	function(data) {
 		var botdiv = document.createElement('div')
 		botdiv.setAttribute('class', 'chat bot');

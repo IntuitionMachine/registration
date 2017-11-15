@@ -2,7 +2,8 @@ from app import app
 import unittest
 
 #from app.models import User
-from app.models import MyRegisterUser
+#from app.models import MyRegisterUser
+from flask_appbuilder.security.sqla.models import User,RegisterUser
 class FlaskTestCase(unittest.TestCase):
 	
 	def setUp(self):

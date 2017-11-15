@@ -80,7 +80,58 @@ ask_name = [ "Hello there! What is your name? ", "Hey there, what is your name?"
 #global var
 firstname=''
 email=''
-	
+
+import re
+
+def extract_email(text):
+	#extracts the word with @ , gets all non space characters beforeand after@
+	m=re.search("\S*@\S*",text)
+	try:
+		email=m.group()
+		return email
+	except: #if no word with @
+		return False
+def extract_name(text):
+	if "i am " in text.lower():
+		print("1")
+		#temp=text.lower().split("i am")
+		m=re.search("i am\s*([^.]+|\S+)",text.lower())
+		print(m.group())
+		print(m.group(1))
+	elif "call me" in text.lower():
+		print("2")
+		#temp.text.lower().split("call me")
+		m=re.search("call me\s*([^.]+|\S+)",text.lower())
+		print(m.group())
+		print(m.group(1))
+	elif "i'm" in text.lower():
+		print("3")
+		#text=temp.lower().split("i'm")
+		m=re.search("i'm\s*([^.]+|\S+)",text.lower())
+		print(m.group())
+		print(m.group(1))
+	elif "name is" in text.lower():
+		print("4")
+		#text=temp.lower().split("name is")
+		m=re.search("name is\s*([^.]+|\S+)",text.lower())
+		print(m.group())
+		print(m.group(1))
+	elif "is my name" in text.lower():
+		print("5")
+		m = re.search("\w+(?=\s*is my name[^/])",text.lower())
+		print(m.group())
+		print(m.group(1))
+	else:
+		print("0")
+		return False
+		#text=temp.lower.split(" ")
+		#text=text[-1]
+		#print("name was: ")
+		#print(text)
+	name=m.group(1)
+	#name=text[-1].lstrip().rstrip() #removes white space characters before and after the name
+	print(name)
+	return name
 def generate_random_password():
 	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
 	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
@@ -96,35 +147,65 @@ def rasanluquery(query):
 	if response['intent']['name']=='greet':
 		return  random.choice(ask_name)
 	elif (response['intent']['name']=='get_name'):
-		if response['entities'][0]:
-			print("NAME ENTITIES")
-			print(response['entities'][0]['entity'])
-			if response['entities'][0]['entity']=='first_name':
-				firstname=response['entities'][0]['value']
-				print("fname")
-				print(firstname)
-				return "hello there %s ! what is your email address?"%firstname
+		try:
+			if response['entities'][0]:
+				print("NAME ENTITIES")
+				print(response['entities'][0]['entity'])
+				if response['entities'][0]['entity']=='first_name':
+					firstname=response['entities'][0]['value']
+					#print("fname")
+					#print(firstname)
+					#return "hello there %s ! what is your email address?"%firstname
+		except:
+			print("e1")
+			print(response['text'])
+			firstname=extract_name(response['text'])
+			if firstname!=False:
+				pass
+			else:
+				return "Sorry. What is your first name again?"
+		print("fname")
+		print(firstname)
+		return "hello there %s ! what is your email address?"%firstname
 
 	elif response['intent']['name']=='get_email':
-		if response['entities'][0]:
-			print ("EMAIL ENTITY")
-			print(response['entities'][0]['entity'])
-			if response['entities'][0]['entity']=='email':
-				email = response['entities'][0]['value']
-				password = generate_random_password()
-				if len(firstname)<1:
-					firstname=email
-				if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser).filter_by(email=email).first() :
-					return ("Sorry mate. There is already an account associated with %s. Try using another email. If you have further inquiries, you may send them to info@intuitionmachine.com."%email)
-				print (appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role))
-				registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name="",email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password )
-				if registeruser:
-					send_subscription_email(registeruser,password)
-					#Should we try to catch email ?
-					return("Thanks for subscribing %s! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in. We will email you this registration details as well."%(firstname,email,password))
-				else:
-					return ("Sorry, we cannot register you at the moment. Please try again later.")
-	return "Can you repeat that again?"
+		try:
+			if response['entities'][0]:
+				print ("EMAIL ENTITY")
+				print(response['entities'][0]['entity'])
+				if response['entities'][0]['entity']=='email':
+					email = response['entities'][0]['value']
+					password = generate_random_password()
+					if len(firstname)<1:
+						firstname=email
+					if db.session.query(MyUser).filter_by(username=email).first() or db.session.query(MyUser).filter_by(email=email).first() :
+						return ("Sorry mate. There is already an account associated with %s. Try using another email. If you have further inquiries, you may send them to info@intuitionmachine.com."%email)
+					print (appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role))
+					#registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name="",email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password )
+					#if registeruser:
+					#	send_subscription_email(registeruser,password)
+					#	#Should we try to catch email ?
+					#	return("Thanks for subscribing %s! Your username is %s and initial password is %s. Feel free to change it under Profile Settings, once you have logged in. We will email you this registration details as well."%(firstname,email,password))
+					#else:
+					#	return ("Sorry, we cannot register you at the moment. Please try again later.")
+		except:
+			print("e2")
+			print(response['text'])
+			email=extract_email(response['text'])
+			if email!=False:
+				pass
+			else:
+				return("Sorry I did not understand that. Can you repeat your email address?")
+		registeruser= appbuilder.sm.add_user(username=email,first_name=firstname,last_name="",email=email,role=appbuilder.sm.find_role(appbuilder.sm.auth_user_registration_role),password=password )
+
+		if registeruser:
+			send_subscription_email(registeruser,password)
+			#Should we try to catch email ?
+			return("Thanks for subscribing %s! Your username is %s and initial password is %s. Feel free to change it under Profile Settings once you haved logged in"%(firstname,email,password))
+		else:
+			return ("Sorry, we cannot register you at the moment. Please try again later.")
+
+	return "Sorry I did not get that. Can you repeat that again?"
 @expose('/activation/<string:activation_hash>')
 def activation(activation_hash):
 		"""
