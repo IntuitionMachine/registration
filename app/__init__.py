@@ -13,7 +13,7 @@ from .sec import MySecurityManager
 #from chatterbot import ChatBot 
 #from chatterbot.trainers import ChatterBotCorpusTrainer
 import requests
-import apiai
+#import apiai
 import json
 """
  Logging configuration
@@ -36,12 +36,12 @@ from flask_cors import CORS,cross_origin
 #Credentials For OpenWeatherAPI
 OWMKEY=os.environ.get('OWMKEY')
 #FB Credentials
-VERIFY_TOKEN=os.environ.get('VERIFY_TOKEN')
+VERIFY_TOKEN=os.environ.get('VERIFYF_TOKEN')
 PAT =os.environ.get('PAT')
 
 #API AI Credentials
 CLIENT_ACCESS_TOKEN=os.environ.get('CLIENT_ACCESS_TOKEN')
-ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+#ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 logging.getLogger().setLevel(logging.DEBUG)
 app = Flask(__name__)
@@ -52,7 +52,7 @@ app.config.from_object('config')
 db = SQLA(app)
 #sslify = SSLify(app)
 appbuilder = AppBuilder(app, db.session,indexview=MyIndexView,security_manager_class=MySecurityManager)
-ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+#ai=apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 #Using Sendgrid for heroku app insteadof Flask_Mail
 #from flask_mail import Mail,Message
 from flask_appbuilder.baseviews import expose
@@ -72,7 +72,27 @@ sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
 from rasa_nlu.config import RasaNLUConfig
 from rasa_nlu.model import Metadata, Interpreter
-from .train import *
+from .train import interpreter
+
+#RASA CORE
+from rasa_core.actions import Action
+from rasa_core.agent import Agent
+from rasa_core.channels.console import ConsoleInputChannel
+from rasa_core.interpreter import RasaNLUInterpreter
+from rasa_core.policies.keras_policy import KerasPolicy
+from rasa_core.policies.memoization import MemoizationPolicy
+
+def generate_random_password():
+	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
+	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
+
+
+agent=Agent.load("models/dialogue",interpreter=interpreter)
+print(agent.handle_message("hi"))
+print(agent.handle_message("My name is Giannis Atentekoumpo"))
+
+
+#RASA CORE
 
 import random
 ask_name = [ "Hello there! What is your name? ", "Hey there, what is your name?", "What is your name?", "Name please? "]
@@ -132,12 +152,11 @@ def extract_name(text):
 	#name=text[-1].lstrip().rstrip() #removes white space characters before and after the name
 	print(name)
 	return name
-def generate_random_password():
-	''' from https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python'''
-	return ''.join(choice(string.ascii_uppercase) for i in range(randint(6,12)))
+
 @app.route('/queryrasabot/<query>',methods = ['GET'])
 def rasanluquery(query):
-	response = interpreter.parse(query)
+	response = agent.handle_message(query)
+	#response = interpreter.parse(query)
 	#firstname=''
 	#email=''
 	global firstname

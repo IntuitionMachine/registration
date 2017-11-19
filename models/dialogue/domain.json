@@ -1,0 +1,16 @@
+{
+  "features": [
+    "intent_greet",
+    "intent_get_name",
+    "intent_get_email",
+    "entity_name",
+    "entity_email",
+    "slot_email_0",
+    "slot_name_0",
+    "prev_action_listen",
+    "prev_action_restart",
+    "prev_utter_ask_name",
+    "prev_utter_ask_email",
+    "prev_action_create_account"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "ensemble_name": "rasa_core.policies.ensemble.SimplePolicyEnsemble",
+  "max_history": 3,
+  "rasa_core": "0.7.6",
+  "policy_names": [
+    "rasa_core.policies.memoization.MemoizationPolicy",
+    "__main__.RestaurantPolicy"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "policy_names": [
+    "rasa_core.policies.memoization.MemoizationPolicy",
+    "rasa_core.policies.keras_policy.KerasPolicy"
+  ],
+  "rasa_core": "0.7.6",
+  "ensemble_name": "rasa_core.policies.ensemble.SimplePolicyEnsemble",
+  "max_history": 3
+}
