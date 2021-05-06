@@ -28,7 +28,7 @@ fakeredis==0.9.0
 Flask==0.12.2
 Flask-AppBuilder==1.9.4
 Flask-Babel==0.11.1
-Flask-Cors==3.0.3
+Flask-Cors==3.0.9
 Flask-Login==0.2.11
 Flask-Mail==0.9.1
 Flask-OpenID==1.2.5
